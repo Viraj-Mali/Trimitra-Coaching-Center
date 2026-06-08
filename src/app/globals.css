@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --brand-blue: #0F2E5A;
+    --brand-green: #10B981;
+    --brand-amber: #F59E0B;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #0a1f3d;
+    color: #e2e8f0;
+    font-family: 'Inter', 'Noto Sans Devanagari', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: rgba(16, 185, 129, 0.3);
+    color: #e2e8f0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0a1f3d;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #1e3d72;
+    border-radius: 3px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #10B981;
+  }
+}
+
+@layer components {
+  /* ── Glassmorphism cards ─────────────────────────────── */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl;
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300 hover:bg-white/10 hover:border-white/20 hover:shadow-card-hover hover:-translate-y-1;
+  }
+
+  /* ── Gradient buttons ────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gradient-amber rounded-xl font-semibold text-white shadow-amber hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gradient-green rounded-xl font-semibold text-white shadow-green hover:shadow-lg hover:scale-105 transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border-2 border-brand-green text-brand-green rounded-xl font-semibold hover:bg-brand-green hover:text-white transition-all duration-200 cursor-pointer;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 px-4 py-2 text-slate-300 hover:text-white hover:bg-white/10 rounded-lg transition-all duration-200 cursor-pointer;
+  }
+
+  /* ── Form inputs ─────────────────────────────────────── */
+  .input-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-brand-green focus:bg-white/10 transition-all duration-200;
+  }
+
+  .select-field {
+    @apply w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-brand-green transition-all duration-200 cursor-pointer;
+  }
+
+  /* ── Section headings ────────────────────────────────── */
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-white mb-4;
+  }
+
+  .section-subtitle {
+    @apply text-lg text-slate-400 max-w-2xl mx-auto;
+  }
+
+  /* ── Badge ───────────────────────────────────────────── */
+  .badge {
+    @apply inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border;
+  }
+
+  /* ── Sidebar item ────────────────────────────────────── */
+  .sidebar-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-200 cursor-pointer font-medium;
+  }
+
+  .sidebar-item-active {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl text-white bg-brand-green/20 border border-brand-green/30 font-semibold cursor-pointer;
+  }
+
+  /* ── Progress bar ────────────────────────────────────── */
+  .progress-bar {
+    @apply h-2 bg-white/10 rounded-full overflow-hidden;
+  }
+
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-1000 ease-out;
+  }
+
+  /* ── Lock overlay ────────────────────────────────────── */
+  .lock-overlay {
+    @apply absolute inset-0 bg-brand-blue/80 backdrop-blur-sm rounded-xl flex flex-col items-center justify-center gap-3 z-10;
+  }
+
+  /* ── Stats card ──────────────────────────────────────── */
+  .stats-card {
+    @apply glass-card p-6 text-center;
+  }
+
+  /* ── Admin table ─────────────────────────────────────── */
+  .admin-table {
+    @apply w-full border-collapse;
+  }
+
+  .admin-table th {
+    @apply text-left px-4 py-3 text-xs font-semibold text-slate-400 uppercase tracking-wider border-b border-white/10;
+  }
+
+  .admin-table td {
+    @apply px-4 py-4 text-sm text-slate-200 border-b border-white/5;
+  }
+
+  .admin-table tr:hover td {
+    @apply bg-white/5;
+  }
+}
+
+@layer utilities {
+  .text-gradient-green {
+    @apply bg-gradient-to-r from-brand-green to-brand-green-light bg-clip-text text-transparent;
+  }
+
+  .text-gradient-amber {
+    @apply bg-gradient-to-r from-brand-amber to-brand-amber-light bg-clip-text text-transparent;
+  }
+
+  .text-gradient-blue {
+    @apply bg-gradient-to-r from-blue-300 to-blue-100 bg-clip-text text-transparent;
+  }
+
+  .glow-green {
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+  }
+
+  .shimmer-bg {
+    background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.05) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}

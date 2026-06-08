@@ -1,0 +1,332 @@
+// This is your Prisma schema file.
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── ENUMS ────────────────────────────────────────────────────────────────────
+
+// SQLite doesn't support native enums, so we use String fields with validation at the app layer.
+// When switching to PostgreSQL, convert these to enum types.
+
+// AcademicTrack values: FOUNDATION_6_9 | BOARD_10 | SCIENCE_11_12 | COMPETITIVE
+// UserRole values: FREE | ENROLLED | ADMIN
+// LeadStatus values: PENDING | CALLED | DEMO_BOOKED | JOINED | REJECTED
+
+// ─── MODELS ───────────────────────────────────────────────────────────────────
+
+model Lead {
+  id            String   @id @default(cuid())
+  studentName   String
+  parentName    String
+  mobile        String
+  standard      String   // e.g. "9th", "10th", "11th"
+  track         String   // AcademicTrack
+  notes         String?
+  preferredTime String?  // Preferred demo class time slot
+  status        String   @default("PENDING") // LeadStatus
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([mobile])
+  @@index([status])
+  @@map("leads")
+}
+
+model Course {
+  id                  String   @id @default(cuid())
+  slug                String   @unique @default("")  // e.g. "10th-board"
+  title               String
+  subtitle            String?
+  description         String?
+  subjects            String   // Comma-separated list
+  targetTrack         String   // AcademicTrack
+  targetClass         String?  // e.g. "6th to 9th"
+  duration            String?  // e.g. "1 Year", "2 Years"
+  isActive            Boolean  @default(true)
+  sortOrder           Int      @default(0)
+
+  // Rich content fields
+  whoShouldJoin       String?
+  teachingMethodology String?
+  weeklyTestPlan      String?
+  doubtSolvingSystem  String?
+  studyMaterial       String?
+  batchTiming         String?
+  examPattern         String?
+
+  // SEO
+  metaTitle           String?
+  metaDescription     String?
+
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  syllabus            Syllabus[]
+  faqs                FAQ[]
+
+  @@index([targetTrack])
+  @@index([isActive])
+  @@index([slug])
+  @@map("courses")
+}
+
+model Student {
+  id           String    @id @default(cuid())
+  rollNumber   String    @unique
+  name         String
+  mobile       String    @unique
+  email        String?
+  passwordHash String
+  role         String    @default("FREE") // UserRole
+  track        String    // AcademicTrack
+  standard     String    // e.g. "10th"
+  isActive     Boolean   @default(true)
+  streakCount  Int       @default(0)
+  totalXP      Int       @default(0)
+  lastActiveAt DateTime?
+  lastQuizDate String?   // ISO date string "YYYY-MM-DD" to track daily quiz completion
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  testMarks    TestMark[]
+  quizAttempts QuizAttempt[]
+
+  @@index([mobile])
+  @@index([track])
+  @@map("students")
+}
+
+model LearningMaterial {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fileUrl     String
+  targetTrack String   // AcademicTrack, or "ALL" for all tracks
+  isPremium   Boolean  @default(false)
+  fileType    String   @default("PDF") // PDF | VIDEO | LINK
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([targetTrack])
+  @@map("learning_materials")
+}
+
+model TestMark {
+  id         String   @id @default(cuid())
+  studentId  String
+  examTitle  String
+  score      Float
+  totalMarks Float
+  track      String   // AcademicTrack
+  takenAt    DateTime @default(now())
+  createdAt  DateTime @default(now())
+
+  student    Student  @relation(fields: [studentId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@map("test_marks")
+}
+
+model Notice {
+  id          String   @id @default(cuid())
+  title       String
+  body        String
+  targetTrack String?  // null = global notice for all tracks
+  isUrgent    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([targetTrack])
+  @@map("notices")
+}
+
+model QuizQuestion {
+  id           String   @id @default(cuid())
+  question     String
+  optionA      String
+  optionB      String
+  optionC      String
+  optionD      String
+  correctIndex Int      // 0=A, 1=B, 2=C, 3=D
+  explanation  String?
+  track        String   // AcademicTrack or "ALL"
+  standard     String?  // optional standard filter
+  subject      String?  // e.g. "Physics", "Chemistry"
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+
+  attempts     QuizAttempt[]
+
+  @@index([track])
+  @@map("quiz_questions")
+}
+
+model QuizAttempt {
+  id          String   @id @default(cuid())
+  studentId   String
+  questionId  String
+  selectedIdx Int
+  isCorrect   Boolean
+  xpAwarded   Int      @default(0)
+  attemptedAt DateTime @default(now())
+
+  student     Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  question    QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([studentId])
+  @@map("quiz_attempts")
+}
+
+// ─── NEW MODELS ───────────────────────────────────────────────────────────────
+
+/// Syllabus — one per course per board/exam type
+model Syllabus {
+  id           String           @id @default(cuid())
+  courseId     String
+  boardExam    String           // e.g. "Maharashtra SSC Board", "JEE Main", "NEET UG"
+  academicYear String           @default("2024-25")
+  isActive     Boolean          @default(true)
+  sortOrder    Int              @default(0)
+  sourceNote   String?          // e.g. "Based on NTA JEE Main 2024 Information Bulletin"
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  course       Course           @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  subjects     SyllabusSubject[]
+
+  @@index([courseId])
+  @@index([isActive])
+  @@map("syllabi")
+}
+
+/// SyllabusSubject — subject within a syllabus
+model SyllabusSubject {
+  id         String            @id @default(cuid())
+  syllabusId String
+  name       String            // e.g. "Physics", "Chemistry"
+  sortOrder  Int               @default(0)
+  createdAt  DateTime          @default(now())
+
+  syllabus   Syllabus          @relation(fields: [syllabusId], references: [id], onDelete: Cascade)
+  chapters   SyllabusChapter[]
+
+  @@index([syllabusId])
+  @@map("syllabus_subjects")
+}
+
+/// SyllabusChapter — chapters within a subject
+model SyllabusChapter {
+  id              String          @id @default(cuid())
+  subjectId       String
+  name            String          // e.g. "Laws of Motion"
+  topics          String?         // Short comma-separated topic list
+  priority        String          @default("Medium") // High | Medium | Low
+  examRelevance   String?         // Comma-separated: "JEE,NEET,Board"
+  sortOrder       Int             @default(0)
+  isImportant     Boolean         @default(false)
+  isActive        Boolean         @default(true)
+  sourceNote      String?
+  updatedAt       DateTime        @updatedAt
+
+  subject         SyllabusSubject @relation(fields: [subjectId], references: [id], onDelete: Cascade)
+
+  @@index([subjectId])
+  @@map("syllabus_chapters")
+}
+
+/// Testimonial — admin-managed student/parent reviews
+model Testimonial {
+  id          String   @id @default(cuid())
+  authorName  String   // e.g. "Rahul D." (initials for last name preferred)
+  authorDetail String  // e.g. "JEE Mains Qualified · HSC 94% · Batch of 2023"
+  authorType  String   @default("STUDENT") // STUDENT | PARENT
+  quote       String
+  stars       Int      @default(5)
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished])
+  @@map("testimonials")
+}
+
+/// Result — admin-managed student achievement records
+model Result {
+  id          String   @id @default(cuid())
+  studentName String   // e.g. "Arjun P." (initials for last name)
+  examName    String   // e.g. "JEE Advanced 2023"
+  score       String   // e.g. "AIR 4,200" or "98.7%ile"
+  track       String   // AcademicTrack
+  examYear    Int      @default(2024)
+  isPublished Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([isPublished])
+  @@map("results")
+}
+
+/// SiteSettings — singleton row for all institute-level settings
+model SiteSettings {
+  id              String   @id @default("singleton")
+  instituteName   String   @default("Trimitra Coaching Centre")
+  phone           String   @default("+91 99990 00000")
+  whatsapp        String   @default("9665269059")
+  email           String   @default("info@trimitra.in")
+  address         String   @default("Trimitra Coaching Centre, Pune, Maharashtra")
+  logoUrl         String?  @default("/logo.png")
+  mentorImageUrl  String?  @default("/mentor-sarthak.png")
+  mapsLink        String?
+  facebook        String?
+  instagram       String?
+  youtube         String?
+  heroHeadline    String   @default("Personal Coaching for Class 6th to 12th, Board Exams & Competitive Exams")
+  heroSubheadline String   @default("Focused mentorship, small batches, regular tests, doubt-solving sessions, and progress tracking under the expert guidance of Dr. Sarthak Dighe.")
+  brochureUrl     String?
+  updatedAt       DateTime @updatedAt
+
+  @@map("site_settings")
+}
+
+/// FAQ — Frequently Asked Questions (global or course-specific)
+model FAQ {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  courseId  String?  // null = global FAQ
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course    Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
+
+  @@index([isActive])
+  @@index([courseId])
+  @@map("faqs")
+}
+
+/// Gallery — image entries managed by admin
+model Gallery {
+  id        String   @id @default(cuid())
+  imageUrl  String
+  caption   String?
+  altText   String?
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([isActive])
+  @@map("gallery")
+}

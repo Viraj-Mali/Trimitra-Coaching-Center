@@ -1,0 +1,187 @@
+{
+  "nav": {
+    "home": "Home",
+    "courses": "Courses",
+    "about": "About Us",
+    "contact": "Contact",
+    "login": "Student Login",
+    "register": "Register Free",
+    "dashboard": "My Dashboard",
+    "logout": "Logout"
+  },
+  "hero": {
+    "badge": "Maharashtra's Premier Coaching Centre",
+    "headline": "Unlock Your Academic",
+    "headline_highlight": "Potential",
+    "subheadline": "Expert coaching for Foundation (6th–9th), 10th Board, 11th–12th Science, and Competitive Exams (IIT-JEE, NEET, MHT-CET, NATA) under the guidance of Dr. Sarthak Dighe.",
+    "cta_demo": "Book Free Demo Class",
+    "cta_register": "Register for free",
+    "cta_register_desc": "Get 10 daily practice questions + interactive syllabus tracker",
+    "cta_explore": "Explore Courses",
+    "stats_students": "Students Enrolled",
+    "stats_results": "Top Results",
+    "stats_experience": "Years Experience",
+    "stats_batches": "Active Batches",
+    "preview_card": {
+      "student_name": "Student Dashboard",
+      "physics": "Physics",
+      "physics_topic": "Rotational Dynamics",
+      "daily_quiz": "Daily Quiz",
+      "quiz_ready": "Ready!"
+    }
+  },
+  "testimonials": {
+    "title": "Success Stories",
+    "subtitle": "Hear from the students and parents who have experienced the Trimitra difference.",
+    "reviews": [
+      {
+        "text": "Dr. Sarthak's conceptual approach completely changed my perspective on Physics. I went from struggling with basic mechanics to scoring 98 in my Board exams and clearing JEE Mains with ease.",
+        "author": "Rahul D.",
+        "detail": "JEE Aspirant, Class of '23"
+      },
+      {
+        "text": "As a parent, I was always worried about the lack of personal attention in large coaching classes. Trimitra's small batches and regular progress updates gave us immense peace of mind.",
+        "author": "Mrs. Kulkarni",
+        "detail": "Parent of 10th Board Student"
+      }
+    ]
+  },
+  "courses": {
+    "title": "Our Academic Programs",
+    "subtitle": "Structured learning pathways designed to build strong foundations and achieve exam excellence.",
+    "foundation": {
+      "title": "Foundation Program",
+      "subtitle": "Class 6th to 9th",
+      "desc": "Build strong conceptual foundations in Mathematics and Science with interactive learning methods."
+    },
+    "board10": {
+      "title": "10th Board Mastery",
+      "subtitle": "Maharashtra SSC Board",
+      "desc": "Comprehensive board preparation with chapter-wise practice, mock tests, and targeted revision."
+    },
+    "science1112": {
+      "title": "11th–12th Science",
+      "subtitle": "HSC Board + Entrance Ready",
+      "desc": "Advanced Physics, Chemistry, Biology, and Mathematics for board excellence and entrance exam preparation."
+    },
+    "competitive": {
+      "title": "Competitive Excellence",
+      "subtitle": "IIT-JEE | NEET | MHT-CET | NATA",
+      "desc": "Intensive coaching for national and state-level competitive examinations with CBT-format practice."
+    },
+    "view_details": "View Course Details",
+    "book_demo": "Book Demo",
+    "locked": "Login to Access",
+    "premium": "Premium Content",
+    "free": "Free Access"
+  },
+  "why_us": {
+    "title": "Why Trimitra?",
+    "subtitle": "A legacy of academic excellence built on proven pedagogy and personal mentorship.",
+    "expert_faculty": "Expert Faculty",
+    "expert_desc": "Direct mentorship from Dr. Sarthak Dighe with years of competitive exam coaching experience.",
+    "cbt_tests": "CBT Mock Tests",
+    "cbt_desc": "Computer-based tests modelled exactly after JEE, NEET, and MHT-CET exam patterns.",
+    "personal_track": "Personal Progress Tracking",
+    "personal_desc": "Chapter-wise completion tracking, XP system, and daily streak mechanics to keep you motivated.",
+    "small_batch": "Small Batch Sizes",
+    "small_desc": "Limited seats per batch ensure personalised attention and doubt-solving sessions."
+  },
+  "lead_form": {
+    "title": "Book Your Free Demo Class",
+    "subtitle": "Fill in the details below and we'll contact you within 24 hours.",
+    "student_name": "Student Name",
+    "parent_name": "Parent Name",
+    "mobile": "Mobile Number",
+    "standard": "Current Class Standard",
+    "track": "Target Course",
+    "notes": "Any specific queries? (Optional)",
+    "submit": "Book Free Demo",
+    "submitting": "Submitting...",
+    "success": "Thank you! We'll call you within 24 hours.",
+    "select_standard": "Select Standard",
+    "select_track": "Select Target Course"
+  },
+  "footer": {
+    "tagline": "Empowering students to achieve their academic dreams through focused mentorship and structured learning.",
+    "quick_links": "Quick Links",
+    "contact_us": "Contact Us",
+    "address": "2nd Floor Society Complex, Talegaon Dighe, Pune, Maharashtra - 424611",
+    "phone": "+91 96652 69059",
+    "email": "info@trimitra.in",
+    "copyright": "© 2024 Trimitra Coaching Centre. All rights reserved."
+  },
+  "auth": {
+    "login_title": "Student Login",
+    "login_subtitle": "Access your dashboard, study materials and mock tests.",
+    "register_title": "Create Free Account",
+    "register_subtitle": "Get instant access to syllabus trackers, daily quizzes, and free study materials.",
+    "mobile_label": "Mobile Number",
+    "password_label": "Password",
+    "confirm_password": "Confirm Password",
+    "name_label": "Full Name",
+    "track_label": "Your Target Course",
+    "standard_label": "Current Standard",
+    "login_btn": "Login",
+    "register_btn": "Create Account",
+    "logging_in": "Logging in...",
+    "registering": "Creating Account...",
+    "no_account": "Don't have an account?",
+    "have_account": "Already have an account?",
+    "sign_up": "Sign Up Free",
+    "sign_in": "Sign In"
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "overview": "Overview",
+    "materials": "Study Materials",
+    "quiz": "Daily Quiz",
+    "tests": "Mock Tests",
+    "notices": "Notices",
+    "profile": "Profile",
+    "streak": "Day Streak",
+    "xp": "Total XP",
+    "rank": "Your Rank",
+    "progress": "Chapter Progress",
+    "recent_notices": "Recent Notices",
+    "no_notices": "No notices yet.",
+    "upgrade": "Upgrade to Premium",
+    "upgrade_desc": "Enroll at Trimitra Coaching Centre to unlock all premium study materials and CBT mock tests.",
+    "contact_admin": "Contact Admin to Enroll",
+    "locked_content": "Premium Content",
+    "locked_desc": "This content is available for enrolled students only.",
+    "quiz_complete": "Today's quiz completed! Come back tomorrow.",
+    "quiz_start": "Start Today's Quiz",
+    "quiz_questions": "questions",
+    "quiz_time": "minutes",
+    "test_locked": "Mock tests are available for enrolled students only.",
+    "submit_test": "Submit Test",
+    "correct": "Correct",
+    "incorrect": "Incorrect",
+    "score": "Your Score"
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "leads": "Lead Management",
+    "students": "Student Management",
+    "content": "Content & Materials",
+    "tests": "Test Scores",
+    "total_leads": "Total Leads",
+    "enrolled": "Enrolled Students",
+    "active_today": "Active Today",
+    "new_leads": "New Leads",
+    "promote": "Promote to Student",
+    "promoting": "Promoting...",
+    "promoted_success": "Student account created successfully!",
+    "update_status": "Update Status",
+    "add_material": "Add Material",
+    "add_notice": "Post Notice",
+    "add_quiz": "Add Quiz Question",
+    "push_score": "Push Score",
+    "search": "Search...",
+    "filter_track": "Filter by Track",
+    "filter_status": "Filter by Status",
+    "all_tracks": "All Tracks",
+    "all_status": "All Status"
+  }
+}
