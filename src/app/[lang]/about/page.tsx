@@ -18,7 +18,7 @@ export default async function AboutPage({ params }: Props) {
         {/* Hero */}
         <div className="text-center mb-16">
           <h1 className="section-title">About Trimitra</h1>
-          <p className="section-subtitle">A legacy of academic excellence, student-first mentorship, and proven results.</p>
+          <p className="section-subtitle">Dedicated to concept-first learning, student mentorship, and structured preparation.</p>
         </div>
 
         {/* Founder */}
@@ -36,7 +36,7 @@ export default async function AboutPage({ params }: Props) {
               <h2 className="text-white font-bold text-2xl">Dr. Sarthak Dighe</h2>
               <p className="text-brand-green font-medium">Founder & Head Mentor</p>
               <div className="flex flex-wrap justify-center gap-2 mt-3">
-                {['M.Sc.', 'Ph.D.', 'IIT-JEE Expert', '10+ Years'].map(tag => (
+                {['M.Sc.', 'Ph.D.', 'IIT-JEE Expert'].map(tag => (
                   <span key={tag} className="badge bg-brand-green/10 text-brand-green border-brand-green/20 text-xs">{tag}</span>
                 ))}
               </div>
@@ -47,7 +47,7 @@ export default async function AboutPage({ params }: Props) {
                 My vision for Trimitra has always been to create an environment where every student feels seen, guided, and empowered to achieve their best. Education is not just about marks — it is about building the confidence to tackle any challenge.
               </p>
               <p className="text-slate-400 leading-relaxed">
-                With over a decade of hands-on experience guiding students through JEE, NEET, MHT-CET, and Maharashtra Board examinations, Dr. Dighe has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His personal involvement in each batch ensures that no student is left behind.
+                Dr. Dighe has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His personal involvement in each batch ensures that every student builds a strong academic foundation and receives individual attention.
               </p>
             </div>
           </div>
@@ -57,7 +57,7 @@ export default async function AboutPage({ params }: Props) {
         <div className="grid md:grid-cols-3 gap-6 mb-16">
           {[
             { icon: Target, title: 'Our Mission', desc: 'To provide every student with structured, personalized, and technologically-enhanced coaching that prepares them not just for exams, but for lifelong learning.', color: 'text-brand-green', bg: 'bg-brand-green/20 border-brand-green/30' },
-            { icon: Lightbulb, title: 'Our Vision', desc: 'To become Maharashtra\'s most trusted coaching institution, recognized for consistently producing top achievers across all academic tracks.', color: 'text-brand-amber', bg: 'bg-brand-amber/20 border-brand-amber/30' },
+            { icon: Lightbulb, title: 'Our Vision', desc: 'To become Talegaon Dighe\'s most trusted coaching institution, recognized for building strong conceptual foundations and empowering students across all academic tracks.', color: 'text-brand-amber', bg: 'bg-brand-amber/20 border-brand-amber/30' },
             { icon: Heart, title: 'Our Values', desc: 'Student-first mentorship, transparent communication with parents, data-driven learning, and zero-compromise on academic integrity.', color: 'text-blue-400', bg: 'bg-blue-500/20 border-blue-500/30' },
           ].map((item, i) => {
             const Icon = item.icon;

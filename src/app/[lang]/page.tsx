@@ -30,23 +30,16 @@ const WHY_FEATURES = [
   { icon: BarChart3, title: { en: 'Progress Tracking App', mr: 'प्रगती ट्रॅकिंग' }, desc: { en: 'Modern student dashboard with daily quizzes, XP system, chapter progress, and test scores.', mr: 'दैनिक क्विझ, XP प्रणाली आणि चाचणी गुणांसह आधुनिक विद्यार्थी डॅशबोर्ड.' } },
 ];
 
-const RESULT_COLORS: Record<string, string> = {
-  COMPETITIVE: 'border-brand-amber/40 bg-brand-amber/5',
-  SCIENCE_11_12: 'border-blue-500/40 bg-blue-500/5',
-  BOARD_10: 'border-blue-400/40 bg-blue-400/5',
-  FOUNDATION_6_9: 'border-purple-500/40 bg-purple-500/5',
-};
+
 
 export default async function HomePage({ params }: Props) {
   const { lang } = params;
   const student = await getCurrentStudent();
 
   // Load everything from database
-  const [dbCourses, settings, dbResults, dbTestimonials, dbFAQs, dbGallery] = await Promise.all([
+  const [dbCourses, settings, dbFAQs, dbGallery] = await Promise.all([
     prisma.course.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' } }),
     prisma.siteSettings.findUnique({ where: { id: 'singleton' } }),
-    prisma.result.findMany({ where: { isPublished: true }, orderBy: [{ sortOrder: 'asc' }, { examYear: 'desc' }], take: 6 }),
-    prisma.testimonial.findMany({ where: { isPublished: true }, orderBy: [{ sortOrder: 'asc' }], take: 3 }),
     prisma.fAQ.findMany({ where: { isActive: true, courseId: null }, orderBy: { sortOrder: 'asc' }, take: 6 }),
     prisma.gallery.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' }, take: 6 }),
   ]);
@@ -111,22 +104,26 @@ export default async function HomePage({ params }: Props) {
               </p>
 
               <div className="flex flex-wrap gap-3 mb-10">
-                <a href="#demo-form" className="flex items-center gap-2 px-6 py-3.5 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 hover:scale-105">
+                <a href="#demo-form" className="flex items-center gap-2 px-5 py-3 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 hover:scale-105">
                   <CalendarCheck size={18} />
-                  {lang === 'mr' ? 'मोफत डेमो वर्ग बुक करा' : 'Book Free Demo Class'}
+                  {lang === 'mr' ? 'मोफत डेमो' : 'Book Free Demo'}
                 </a>
-                <a href="#courses" className="flex items-center gap-2 px-6 py-3.5 border-2 border-white/20 text-white font-semibold rounded-xl hover:border-brand-green hover:text-brand-green transition-all">
-                  {lang === 'mr' ? 'अभ्यासक्रम पहा' : 'View Courses'}
-                  <ChevronRight size={16} />
+                <a href={waLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl shadow-lg shadow-green-500/30 transition-all hover:scale-105">
+                  <MessageCircle size={18} />
+                  WhatsApp
+                </a>
+                <a href={`tel:+91${phone}`} className="flex items-center gap-2 px-5 py-3 border border-white/20 hover:bg-white/10 text-white font-semibold rounded-xl transition-all">
+                  <Phone size={18} />
+                  Call Now
                 </a>
               </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                 {[
-                  { value: '500+', label: { en: 'Students Guided', mr: 'विद्यार्थी' } },
-                  { value: '95%', label: { en: 'Result Rate', mr: 'यश दर' } },
-                  { value: '10+', label: { en: 'Years Experience', mr: 'वर्षांचा अनुभव' } },
                   { value: '≤20', label: { en: 'Students/Batch', mr: 'विद्यार्थी/बॅच' } },
+                  { value: '1-on-1', label: { en: 'Personal Attention', mr: 'वैयक्तिक लक्ष' } },
+                  { value: 'Weekly', label: { en: 'Pattern Tests', mr: 'साप्ताहिक चाचण्या' } },
+                  { value: 'Concept', label: { en: 'First Approach', mr: 'संकल्पना-प्रथम' } },
                 ].map((s, i) => (
                   <div key={i} className="bg-white/5 border border-white/10 rounded-xl p-3 text-center">
                     <div className="text-2xl font-black text-brand-amber">{s.value}</div>
@@ -151,11 +148,11 @@ export default async function HomePage({ params }: Props) {
               </div>
               <div className="absolute -top-4 -left-6 bg-white rounded-2xl shadow-xl p-3 flex items-center gap-3 border border-slate-100">
                 <div className="w-10 h-10 bg-brand-green/15 rounded-xl flex items-center justify-center">
-                  <Trophy size={20} className="text-brand-green" />
+                  <BookOpen size={20} className="text-brand-green" />
                 </div>
                 <div>
-                  <p className="text-slate-800 font-bold text-sm">95% Results</p>
-                  <p className="text-slate-500 text-xs">Consistently Every Year</p>
+                  <p className="text-slate-800 font-bold text-sm">Concept Focus</p>
+                  <p className="text-slate-500 text-xs">For Deep Understanding</p>
                 </div>
               </div>
               <div className="absolute -bottom-4 -right-4 bg-white rounded-2xl shadow-xl p-3 flex items-center gap-3 border border-slate-100">
@@ -168,6 +165,41 @@ export default async function HomePage({ params }: Props) {
                 </div>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3.5. TEACHING METHODOLOGY ──────────────────────────────────── */}
+      <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#091c38] to-[#0F2E5A]">
+        <div className="max-w-7xl mx-auto text-center">
+          <p className="text-brand-green text-sm font-semibold uppercase tracking-wider mb-2">
+            {lang === 'mr' ? 'आमची शिकवण्याची पद्धत' : 'How We Teach'}
+          </p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">
+            {lang === 'mr' ? 'यशाचा स्पष्ट मार्ग' : 'The Trimitra Academic Roadmap'}
+          </h2>
+          
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connecting Line */}
+            <div className="hidden md:block absolute top-12 left-20 right-20 h-0.5 bg-gradient-to-r from-transparent via-brand-green/30 to-transparent"></div>
+            
+            {[
+              { step: '01', title: 'Concept Building', desc: 'We start from zero. No rushing, no memorizing without understanding.', icon: Lightbulb },
+              { step: '02', title: 'Rigorous Practice', desc: 'Daily assignments and structured problem-solving sessions.', icon: Target },
+              { step: '03', title: 'Exam Readiness', desc: 'Weekly pattern-based tests and performance analysis.', icon: Trophy }
+            ].map((s, i) => {
+              const Icon = s.icon;
+              return (
+                <div key={i} className="relative z-10 flex flex-col items-center">
+                  <div className="w-24 h-24 bg-[#091c38] border-4 border-[#0F2E5A] rounded-full flex items-center justify-center mb-6 shadow-2xl relative">
+                    <div className="absolute -inset-1 bg-gradient-to-br from-brand-green to-brand-amber rounded-full opacity-20 animate-pulse"></div>
+                    <Icon size={32} className="text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3"><span className="text-brand-green mr-2">{s.step}.</span>{s.title}</h3>
+                  <p className="text-slate-400 text-sm max-w-xs leading-relaxed">{s.desc}</p>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -190,13 +222,12 @@ export default async function HomePage({ params }: Props) {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {dbCourses.length === 0 ? (
-              <div className="col-span-full text-center py-10 bg-white/5 rounded-2xl border border-white/10">
-                <p className="text-slate-400">
-                  {lang === 'mr' ? 'सध्या कोणतेही अभ्यासक्रम उपलब्ध नाहीत.' : 'No courses available at the moment.'}
-                </p>
-              </div>
-            ) : dbCourses.map((course, idx) => {
+            {(dbCourses.length > 0 ? dbCourses : [
+              { id: 'f1', title: 'Foundation (6th-8th)', subtitle: 'Build Strong Basics', description: 'Perfect starting point for academic excellence and conceptual clarity.', subjects: 'Maths,Science,English', targetTrack: 'FOUNDATION_6_9' },
+              { id: 'f2', title: '9th-10th Board Mastery', subtitle: 'Target 95%+', description: 'Comprehensive preparation for SSC & CBSE board exams.', subjects: 'Maths,Science,Social,English', targetTrack: 'BOARD_10' },
+              { id: 'f3', title: '11th-12th Science', subtitle: 'HSC / CBSE', description: 'Expert coaching for Board exams with practical insights.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'SCIENCE_11_12' },
+              { id: 'f4', title: 'JEE & NEET', subtitle: 'Competitive Focus', description: 'Rigorous preparation for top-tier engineering and medical colleges.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE' },
+            ]).map((course: any, idx) => {
               const style = COURSE_STYLES[idx % COURSE_STYLES.length];
               const courseSlug = course.slug || course.targetTrack.toLowerCase();
               return (
@@ -213,7 +244,7 @@ export default async function HomePage({ params }: Props) {
                       {lang === 'mr' ? 'विषय' : 'Subjects'}
                     </p>
                     <div className="flex flex-wrap gap-1.5">
-                      {course.subjects.split(',').slice(0, 3).map(s => (
+                      {course.subjects.split(',').slice(0, 3).map((s: string) => (
                         <span key={s} className="text-xs text-slate-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">{s.trim()}</span>
                       ))}
                       {course.subjects.split(',').length > 3 && (
@@ -297,7 +328,7 @@ export default async function HomePage({ params }: Props) {
                 <h3 className="text-white font-black text-xl mb-1">Dr. Sarthak Dighe</h3>
                 <p className="text-brand-green font-semibold text-sm mb-3">Founder & Head Mentor</p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  {['M.Sc.', 'Ph.D.', '10+ Years', 'JEE Expert'].map(tag => (
+                  {['M.Sc.', 'Ph.D.', 'JEE/NEET Mentor'].map(tag => (
                     <span key={tag} className="text-xs bg-brand-green/15 border border-brand-green/30 text-brand-green px-2.5 py-1 rounded-full font-medium">{tag}</span>
                   ))}
                 </div>
@@ -316,8 +347,8 @@ export default async function HomePage({ params }: Props) {
 
                 <p className="text-slate-300 text-sm leading-relaxed mb-5">
                   {lang === 'mr'
-                    ? 'डॉ. सार्थक दिघे यांनी गेल्या एक दशकाहून अधिक काळात विद्यार्थ्यांना JEE, NEET, MHT-CET आणि महाराष्ट्र बोर्ड परीक्षांमध्ये यश मिळवण्यासाठी वैयक्तिकरित्या मार्गदर्शन केले आहे.'
-                    : 'With over a decade of hands-on experience mentoring students through JEE, NEET, MHT-CET, and Maharashtra Board exams, Dr. Dighe has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His direct personal involvement in each batch ensures that no student is left behind.'}
+                    ? 'डॉ. सार्थक दिघे यांच्याकडे पीएच.डी. पदवी असून ते विज्ञान आणि गणित विषयातील क्लिष्ट संकल्पना सोप्या भाषेत समजावून सांगण्यासाठी समर्पित आहेत. त्यांनी संकल्पना-प्रथम शिकवण्याची पद्धत विकसित केली आहे. प्रत्येक बॅचमध्ये त्यांच्या थेट वैयक्तिक सहभागामुळे प्रत्येक विद्यार्थ्याला योग्य मार्गदर्शन मिळते.'
+                    : 'Dr. Sarthak Dighe holds a Ph.D. and is deeply passionate about simplifying complex concepts in Science and Mathematics. He has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His direct personal involvement in each batch ensures that no student is left behind.'}
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -325,7 +356,7 @@ export default async function HomePage({ params }: Props) {
                     { label: { en: 'Specialization', mr: 'विशेषज्ञता' }, value: { en: 'Physics & Mathematics', mr: 'भौतिकशास्त्र आणि गणित' } },
                     { label: { en: 'Teaching Style', mr: 'शिकवण्याची पद्धत' }, value: { en: 'Concept-first, exam-focused', mr: 'संकल्पना-प्रथम, परीक्षा-केंद्रित' } },
                     { label: { en: 'Batch Strength', mr: 'बॅचची ताकद' }, value: { en: 'Max 15–20 students', mr: 'जास्तीत जास्त १५-२० विद्यार्थी' } },
-                    { label: { en: 'Students Mentored', mr: 'मार्गदर्शन केलेले विद्यार्थी' }, value: { en: '500+ and growing', mr: '५०० + आणि वाढत आहे' } },
+                    { label: { en: 'Regular Testing', mr: 'नियमित चाचण्या' }, value: { en: 'Weekly Mock Series', mr: 'साप्ताहिक मॉक मालिका' } },
                   ].map((item, i) => (
                     <div key={i} className="bg-white/5 rounded-xl p-3">
                       <p className="text-slate-500 text-xs mb-1">{l(item.label)}</p>
@@ -339,73 +370,10 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── 5. RESULTS ──────────────────────────────────────────────── */}
-      <section id="results" className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-14">
-            <p className="text-brand-green text-sm font-semibold uppercase tracking-wider mb-2">
-              {lang === 'mr' ? 'आमचे यश' : 'Proven Results'}
-            </p>
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {lang === 'mr' ? 'आमच्या विद्यार्थ्यांचे यश' : 'Our Students Achieve Real Results'}
-            </h2>
-            <p className="text-slate-400 text-lg max-w-2xl mx-auto">
-              {lang === 'mr'
-                ? 'संख्या बोलतात. प्रत्येक विद्यार्थी प्रत्येक वर्षी वाढतो.'
-                : 'Numbers speak for themselves. Every student grows, every batch, every year.'}
-            </p>
-          </div>
 
-          {dbResults.length > 0 ? (
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-14">
-              {dbResults.map((r) => (
-                <div key={r.id} className={`border rounded-2xl p-5 flex items-center gap-4 ${RESULT_COLORS[r.track] || 'border-white/20 bg-white/3'}`}>
-                  <div className="w-14 h-14 bg-white/10 rounded-xl flex items-center justify-center shrink-0">
-                    <Trophy size={24} className="text-brand-amber" />
-                  </div>
-                  <div>
-                    <p className="text-white font-bold">{r.studentName}</p>
-                    <p className="text-slate-400 text-sm">{r.examName} · {r.examYear}</p>
-                    <p className="text-brand-green font-bold text-lg">{r.score}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-10 text-slate-500 mb-14">
-              <p>Results coming soon. <a href="#demo-form" className="text-brand-green hover:underline">Be the next success story →</a></p>
-            </div>
-          )}
-
-          {/* Testimonials */}
-          {dbTestimonials.length > 0 && (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {dbTestimonials.map((t) => (
-                <div key={t.id} className="bg-white/3 border border-white/10 rounded-2xl p-7 relative">
-                  <div className="flex mb-3 gap-0.5">
-                    {[...Array(t.stars)].map((_, si) => (
-                      <Star key={si} size={16} className="text-brand-amber fill-brand-amber" />
-                    ))}
-                  </div>
-                  <p className="text-slate-300 text-sm leading-relaxed mb-5 italic">&quot;{t.quote}&quot;</p>
-                  <div className="flex items-center gap-3 border-t border-white/10 pt-4">
-                    <div className="w-10 h-10 bg-brand-green/20 border border-brand-green/30 rounded-full flex items-center justify-center font-bold text-brand-green text-sm">
-                      {t.authorName.charAt(0)}
-                    </div>
-                    <div>
-                      <p className="text-white font-semibold text-sm">{t.authorName}</p>
-                      <p className="text-brand-green text-xs">{t.authorDetail}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
 
       {/* ── 6. GALLERY ──────────────────────────────────────────────── */}
-      {dbGallery.length > 0 && (
+      {(dbGallery.length > 0 || true) && (
         <section id="gallery" className="py-20 px-4 sm:px-6 lg:px-8 bg-[#091c38]">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-12">
@@ -417,12 +385,17 @@ export default async function HomePage({ params }: Props) {
               </h2>
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {dbGallery.slice(0, 6).map((item) => (
+              {(dbGallery.length > 0 ? dbGallery.slice(0, 6) : [
+                { id: 'g1', imageUrl: '/hero-classroom.jpg', caption: 'Interactive Classroom Sessions', altText: 'Classroom' },
+                { id: 'g2', imageUrl: '/hero-classroom.jpg', caption: 'Focused Doubt Solving', altText: 'Doubt Solving' },
+                { id: 'g3', imageUrl: '/hero-classroom.jpg', caption: 'Modern Infrastructure', altText: 'Infrastructure' }
+              ]).map((item: any) => (
                 <div key={item.id} className="relative h-56 rounded-2xl overflow-hidden border border-white/10 group">
-                  <img
+                  <Image
                     src={item.imageUrl}
                     alt={item.altText || item.caption || 'Trimitra Coaching Centre'}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                   {item.caption && (

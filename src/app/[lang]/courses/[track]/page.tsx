@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!course) return { title: 'Course | Trimitra Coaching Centre' };
   return {
     title: course.metaTitle || `${course.title} | Trimitra Coaching Centre, Talegaon Dighe Pune`,
-    description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe, Pune. Small batches, personal attention, proven results.`,
+    description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe, Pune. Small batches, personal attention, structured preparation.`,
     keywords: `${course.title} coaching Pune, ${course.targetClass} tuition Talegaon Dighe, best coaching classes Pune`,
   };
 }

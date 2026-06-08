@@ -8,7 +8,10 @@ const TRACKS = [
   { value: 'FOUNDATION_6_9', label: 'Foundation (6th–9th)' },
   { value: 'BOARD_10', label: '10th Board Mastery' },
   { value: 'SCIENCE_11_12', label: '11th–12th Science' },
-  { value: 'COMPETITIVE', label: 'Competitive (JEE / NEET / MHT-CET / NATA)' },
+  { value: 'COMPETITIVE_JEE', label: 'JEE Main & Advanced' },
+  { value: 'COMPETITIVE_NEET', label: 'NEET UG' },
+  { value: 'COMPETITIVE_MHTCET', label: 'MHT-CET' },
+  { value: 'COMPETITIVE_NATA', label: 'NATA' },
 ];
 const TIME_SLOTS = [
   'Morning (7:00 AM – 9:00 AM)',
@@ -37,6 +40,18 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
     e.preventDefault();
     setStatus('loading');
     setErrorMsg('');
+
+    if (form.studentName.trim().length < 3) {
+      setErrorMsg(lang === 'mr' ? 'विद्यार्थ्याचे नाव किमान ३ अक्षरांचे असावे.' : 'Student name must be at least 3 characters.');
+      setStatus('error');
+      return;
+    }
+
+    if (form.parentName.trim().length < 3) {
+      setErrorMsg(lang === 'mr' ? 'पालकाचे नाव किमान ३ अक्षरांचे असावे.' : 'Parent name must be at least 3 characters.');
+      setStatus('error');
+      return;
+    }
 
     if (!/^[6-9]\d{9}$/.test(form.mobile)) {
       setErrorMsg(lang === 'mr' ? 'कृपया वैध भारतीय मोबाइल नंबर टाका.' : 'Please enter a valid 10-digit Indian mobile number.');

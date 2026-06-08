@@ -11,7 +11,7 @@ const quickLinks = [
   { href: '#courses', label: { en: 'Courses', mr: 'अभ्यासक्रम' } },
   { href: '#why-us', label: { en: 'Why Trimitra', mr: 'त्रिमित्र का?' } },
   { href: '#mentor', label: { en: 'About Mentor', mr: 'मार्गदर्शकाबद्दल' } },
-  { href: '#results', label: { en: 'Results', mr: 'निकाल' } },
+  { href: '#gallery', label: { en: 'Gallery', mr: 'गॅलरी' } },
   { href: '#demo-form', label: { en: 'Book Demo Class', mr: 'डेमो वर्ग' } },
 ];
 

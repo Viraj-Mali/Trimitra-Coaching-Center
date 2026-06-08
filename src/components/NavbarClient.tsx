@@ -15,7 +15,7 @@ interface NavbarClientProps {
 
 const navLinks = [
   { href: '#courses', label: { en: 'Courses', mr: 'अभ्यासक्रम' } },
-  { href: '#results', label: { en: 'Results', mr: 'निकाल' } },
+  { href: '#gallery', label: { en: 'Gallery', mr: 'गॅलरी' } },
   { href: '#why-us', label: { en: 'Why Trimitra', mr: 'त्रिमित्र का?' } },
   { href: '#mentor', label: { en: 'About Mentor', mr: 'मार्गदर्शक' } },
   { href: '#contact', label: { en: 'Contact', mr: 'संपर्क' } },

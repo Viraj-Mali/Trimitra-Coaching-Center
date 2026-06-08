@@ -545,57 +545,10 @@ async function main() {
   }
 
   // ── 7. Testimonials ─────────────────────────────────────────────────────────
-  const existingTestimonials = await prisma.testimonial.count();
-  if (existingTestimonials === 0) {
-    await prisma.testimonial.createMany({
-      data: [
-        {
-          authorName: 'Rahul D.',
-          authorDetail: 'JEE Mains Qualified · HSC 94% · Batch 2023',
-          authorType: 'STUDENT',
-          quote: "Dr. Sarthak Sir's conceptual approach to Physics changed everything for me. I went from 62% in 11th prelims to clearing JEE Mains and scoring 94% in my HSC boards. The small batch meant he actually knew my weak areas and worked on them specifically.",
-          stars: 5,
-          isPublished: true,
-          sortOrder: 0,
-        },
-        {
-          authorName: 'Mrs. Sunita K.',
-          authorDetail: 'Parent of a 10th Board student · Score improved 71→91',
-          authorType: 'PARENT',
-          quote: "As a parent I was sceptical about coaching classes after bad experiences elsewhere. But Trimitra is genuinely different. Monthly reports, direct WhatsApp updates from Sir, and my daughter's confidence in Maths has completely transformed. Her prelim score went from 71 to 91.",
-          stars: 5,
-          isPublished: true,
-          sortOrder: 1,
-        },
-        {
-          authorName: 'Ananya J.',
-          authorDetail: 'MHT-CET 99.2 %ile · Batch 2024',
-          authorType: 'STUDENT',
-          quote: "I joined Trimitra for 11th and 12th Science and the dual-track approach for both Board and MHT-CET was exactly what I needed. The weekly tests and personal feedback sessions helped me understand where I was going wrong. Scored 99.2 percentile in MHT-CET 2024.",
-          stars: 5,
-          isPublished: true,
-          sortOrder: 2,
-        },
-      ],
-    });
-    console.log('✅ Testimonials seeded');
-  }
+  console.log('⏭️ Testimonials seeding skipped (new coaching center)');
 
   // ── 8. Results ─────────────────────────────────────────────────────────────
-  const existingResults = await prisma.result.count();
-  if (existingResults === 0) {
-    await prisma.result.createMany({
-      data: [
-        { studentName: 'Arjun P.', examName: 'JEE Advanced 2023', score: 'AIR 4,200', track: 'COMPETITIVE', examYear: 2023, isPublished: true, sortOrder: 0 },
-        { studentName: 'Sakshi M.', examName: 'NEET UG 2024', score: '652 / 720', track: 'COMPETITIVE', examYear: 2024, isPublished: true, sortOrder: 1 },
-        { studentName: 'Rohan S.', examName: 'HSC Board 2024', score: '98.4%', track: 'SCIENCE_11_12', examYear: 2024, isPublished: true, sortOrder: 2 },
-        { studentName: 'Ananya J.', examName: 'MHT-CET 2024', score: '99.2 %ile', track: 'COMPETITIVE', examYear: 2024, isPublished: true, sortOrder: 3 },
-        { studentName: 'Vedant K.', examName: 'SSC Board 2023', score: '97.2%', track: 'BOARD_10', examYear: 2023, isPublished: true, sortOrder: 4 },
-        { studentName: 'Shreya D.', examName: 'JEE Mains 2024', score: '98.7 %ile', track: 'COMPETITIVE', examYear: 2024, isPublished: true, sortOrder: 5 },
-      ],
-    });
-    console.log('✅ Results seeded');
-  }
+  console.log('⏭️ Results seeding skipped (new coaching center)');
 
   // ── 9. FAQs ────────────────────────────────────────────────────────────────
   const existingFAQs = await prisma.fAQ.count();
