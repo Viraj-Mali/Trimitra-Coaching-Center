@@ -299,7 +299,7 @@ export default async function HomePage({ params }: Props) {
           </div>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {(dbCourses.length > 0 ? dbCourses : [
+            {([
               { id: 'f1', title: 'Foundation Program', subtitle: 'Class 6th–9th', description: 'Strong foundation in Maths and Science with concept clarity, regular practice, and doubt-solving.', subjects: 'Maths, Science', targetTrack: 'FOUNDATION_6_9' },
               { id: 'f2', title: '9th–10th Board Mastery', subtitle: 'SSC Board Preparation', description: 'Focused Maths and Science preparation for board exams with weekly tests, revision, and exam-style practice.', subjects: 'Maths, Science', targetTrack: 'BOARD_10' },
               { id: 'f3', title: '11th–12th Science', subtitle: 'PCMB Board & Entrance Foundation', description: 'Structured PCMB coaching for 11th–12th Science students with board and entrance-oriented preparation.', subjects: 'Physics, Chemistry, Mathematics, Biology', targetTrack: 'SCIENCE_11_12' },
