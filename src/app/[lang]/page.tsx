@@ -300,12 +300,10 @@ export default async function HomePage({ params }: Props) {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {(dbCourses.length > 0 ? dbCourses : [
-              { id: 'f1', title: 'Foundation (6th-8th)', subtitle: 'Build Strong Basics', description: 'Perfect starting point for academic excellence and conceptual clarity.', subjects: 'Maths,Science', targetTrack: 'FOUNDATION_6_9' },
-              { id: 'f2', title: '9th-10th Board Mastery', subtitle: 'Target 95%+', description: 'Comprehensive preparation for SSC & CBSE board exams.', subjects: 'Maths,Science', targetTrack: 'BOARD_10' },
-              { id: 'f3', title: '11th-12th Science', subtitle: 'HSC / CBSE', description: 'Expert coaching for Board exams with practical insights.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'SCIENCE_11_12' },
-              { id: 'f4', title: 'JEE & NEET', subtitle: 'Competitive Focus', description: 'Rigorous preparation for top-tier engineering and medical colleges.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE' },
-              { id: 'f5', title: 'MHT-CET (PCMB)', subtitle: 'State Engineering', description: 'Focused training for Maharashtra state level engineering and pharmacy entrance.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE_MHTCET' },
-              { id: 'f6', title: 'NATA', subtitle: 'Architecture Entrance', description: 'Dedicated coaching for National Aptitude Test in Architecture.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE_NATA' },
+              { id: 'f1', title: 'Foundation Program (6th–9th)', subtitle: 'Build Strong Basics', description: 'Perfect starting point for academic excellence and conceptual clarity.', subjects: 'Maths, Science, English', targetTrack: 'FOUNDATION_6_9' },
+              { id: 'f2', title: '9th–10th Board Mastery', subtitle: 'Board-Focused Preparation', description: 'Comprehensive preparation for SSC & CBSE board exams.', subjects: 'Maths, Science, Social', targetTrack: 'BOARD_10' },
+              { id: 'f3', title: '11th–12th Science', subtitle: 'HSC / CBSE', description: 'Expert coaching for Board exams with practical insights.', subjects: 'Physics, Chemistry, Maths, Biology if offered', targetTrack: 'SCIENCE_11_12' },
+              { id: 'f4', title: 'JEE / NEET / MHT-CET', subtitle: 'Competitive Focus', description: 'Structured preparation for engineering, medical and CET entrance exams.', subjects: 'Physics, Chemistry, Maths, Biology if offered', targetTrack: 'COMPETITIVE' },
             ]).map((course: any, idx) => {
               const style = COURSE_STYLES[idx % COURSE_STYLES.length];
               const courseSlug = course.slug || course.targetTrack.toLowerCase();
@@ -321,14 +319,6 @@ export default async function HomePage({ params }: Props) {
                     <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-1">{course.description}</p>
 
                     <div className="mb-8">
-                      <div className="flex flex-wrap gap-2 mb-4">
-                        <span className="text-xs text-brand-green bg-brand-green/10 border border-brand-green/20 px-2.5 py-1 rounded-md font-semibold">
-                          <Clock size={12} className="inline mr-1" /> Weekly Tests
-                        </span>
-                        <span className="text-xs text-brand-amber bg-brand-amber/10 border border-brand-amber/20 px-2.5 py-1 rounded-md font-semibold">
-                          <Target size={12} className="inline mr-1" /> Syllabus Focus
-                        </span>
-                      </div>
                       <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">
                         {lang === 'mr' ? 'विषय' : 'Subjects'}
                       </p>
@@ -343,19 +333,18 @@ export default async function HomePage({ params }: Props) {
                     </div>
 
                     <div className="flex flex-col gap-3 mt-auto">
-                      <a
-                        href="#enroll-form"
-                        className="flex items-center justify-center gap-2 py-3 px-4 bg-brand-green hover:bg-green-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-green/20 transition-all hover:scale-105"
-                      >
-                        {lang === 'mr' ? 'मोफत डेमो क्लास बूक करा' : 'Book Free Demo Class'}
-                      </a>
                       <Link
                         href={`/${lang}/courses/${courseSlug}`}
                         className={`flex items-center justify-center gap-2 py-3 px-4 border rounded-xl text-sm font-bold transition-all ${style.btnClass}`}
                       >
-                        {lang === 'mr' ? 'अभ्यासक्रम पहा' : 'View Details'}
-                        <ArrowRight size={16} />
+                        {lang === 'mr' ? 'अभ्यासक्रम पहा →' : 'View Course Details →'}
                       </Link>
+                      <a
+                        href="#enroll-form"
+                        className="flex items-center justify-center gap-2 text-slate-400 hover:text-white text-xs font-medium transition-colors"
+                      >
+                        {lang === 'mr' ? 'प्रवेश नोंदणी करा →' : 'Enroll Now →'}
+                      </a>
                     </div>
                   </div>
                 </div>
