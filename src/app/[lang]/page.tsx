@@ -220,18 +220,25 @@ export default async function HomePage({ params }: Props) {
               ? 'नवीन केंद्र असल्याने, आम्ही प्रत्येक विद्यार्थ्यावर लक्ष केंद्रित करू शकतो. कमी विद्यार्थी, अधिक लक्ष आणि दररोज थेट मार्गदर्शकाचा संवाद.'
               : 'As a newly opened center, we offer what massive institutes cannot: absolute focus. With limited seats, smaller batches, and direct daily interaction with the founder, your child gets the undivided attention they deserve to build a solid academic foundation.'}
           </p>
-          <div className="grid sm:grid-cols-3 gap-6 text-left">
+          <div className="grid sm:grid-cols-3 gap-6 text-left relative z-10">
             {[
               { icon: Users, title: 'Smaller Batches', desc: 'More time per student.' },
               { icon: Target, title: 'Direct Mentorship', desc: 'Daily interaction with Dr. Dighe.' },
               { icon: Shield, title: 'No Crowds', desc: 'A focused, distraction-free environment.' }
-            ].map((adv, i) => (
-              <div key={i} className="bg-[#091c38] border border-white/10 rounded-xl p-5 shadow-lg">
-                <adv.icon size={24} className="text-brand-amber mb-3" />
-                <h4 className="text-white font-bold text-base mb-1">{adv.title}</h4>
-                <p className="text-slate-400 text-sm">{adv.desc}</p>
+            ].map((adv, i) => {
+              const Icon = adv.icon;
+              return (
+              <div key={i} className="relative group bg-[#0F2E5A] border border-white/10 rounded-3xl p-8 hover:bg-[#13386e] transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(34,197,94,0.15)] overflow-hidden">
+                <div className="absolute -inset-1 bg-gradient-to-br from-brand-amber/20 to-brand-green/20 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+                <div className="relative z-10">
+                  <div className="w-14 h-14 bg-[#091c38] border border-white/5 rounded-2xl flex items-center justify-center mb-6 shadow-inner group-hover:scale-110 transition-transform duration-500">
+                    <Icon size={28} className="text-brand-amber group-hover:text-brand-green transition-colors duration-500" />
+                  </div>
+                  <h4 className="text-white font-bold text-xl mb-3">{adv.title}</h4>
+                  <p className="text-slate-400 text-sm leading-relaxed">{adv.desc}</p>
+                </div>
               </div>
-            ))}
+            )})}
           </div>
         </div>
       </section>
@@ -258,13 +265,15 @@ export default async function HomePage({ params }: Props) {
             ].map((s, i) => {
               const Icon = s.icon;
               return (
-                <div key={i} className="relative z-10 flex flex-col items-center">
-                  <div className="w-20 h-20 bg-[#091c38] border-4 border-[#0F2E5A] rounded-full flex items-center justify-center mb-6 shadow-2xl relative">
-                    <div className="absolute -inset-1 bg-gradient-to-br from-brand-green to-brand-amber rounded-full opacity-20 animate-pulse"></div>
-                    <Icon size={26} className="text-white" />
+                <div key={i} className="relative z-10 flex flex-col items-center group">
+                  <div className="w-24 h-24 bg-[#0F2E5A] border border-white/10 rounded-full flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(0,0,0,0.5)] relative group-hover:-translate-y-2 transition-all duration-500">
+                    <div className="absolute -inset-2 bg-gradient-to-br from-brand-green to-brand-amber rounded-full opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-500"></div>
+                    <div className="absolute inset-2 bg-[#091c38] rounded-full flex items-center justify-center border border-white/5">
+                      <Icon size={32} className="text-white group-hover:text-brand-green transition-colors duration-500" />
+                    </div>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-3"><span className="text-brand-green mr-2">{s.step}.</span>{s.title}</h3>
-                  <p className="text-slate-400 text-sm max-w-[200px] leading-relaxed">{s.desc}</p>
+                  <h3 className="text-xl font-bold text-white mb-3 tracking-wide"><span className="text-brand-green mr-2">{s.step}.</span>{s.title}</h3>
+                  <p className="text-slate-400 text-sm max-w-[220px] leading-relaxed">{s.desc}</p>
                 </div>
               );
             })}
@@ -301,50 +310,53 @@ export default async function HomePage({ params }: Props) {
               const style = COURSE_STYLES[idx % COURSE_STYLES.length];
               const courseSlug = course.slug || course.targetTrack.toLowerCase();
               return (
-                <div key={course.id} className={`bg-white/3 rounded-2xl border-2 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl p-6 flex flex-col ${style.colorClass}`}>
-                  <div className="text-4xl mb-4">{style.icon}</div>
-                  <span className={`inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-semibold border mb-3 w-fit ${style.badgeClass}`}>
-                    {course.subtitle || '—'}
-                  </span>
-                  <h3 className="text-white font-bold text-lg mb-2">{course.title}</h3>
-                  <p className="text-slate-400 text-sm mb-4 leading-relaxed flex-1">{course.description}</p>
+                <div key={course.id} className={`group relative bg-[#0F2E5A] rounded-3xl border-2 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(34,197,94,0.1)] p-8 flex flex-col overflow-hidden ${style.colorClass}`}>
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-white/5 to-transparent rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="relative z-10 flex flex-col h-full">
+                    <div className="text-5xl mb-6 transform group-hover:scale-110 transition-transform duration-500 origin-left">{style.icon}</div>
+                    <span className={`inline-flex items-center px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider border mb-4 w-fit ${style.badgeClass}`}>
+                      {course.subtitle || '—'}
+                    </span>
+                    <h3 className="text-white font-black text-xl mb-3">{course.title}</h3>
+                    <p className="text-slate-400 text-sm mb-6 leading-relaxed flex-1">{course.description}</p>
 
-                  <div className="mb-4">
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      <span className="text-xs text-brand-green bg-brand-green/10 border border-brand-green/20 px-2.5 py-1 rounded-md font-semibold">
-                        <Clock size={10} className="inline mr-1" /> Weekly Tests
-                      </span>
-                      <span className="text-xs text-brand-amber bg-brand-amber/10 border border-brand-amber/20 px-2.5 py-1 rounded-md font-semibold">
-                        <Target size={10} className="inline mr-1" /> Syllabus Focus
-                      </span>
+                    <div className="mb-8">
+                      <div className="flex flex-wrap gap-2 mb-4">
+                        <span className="text-xs text-brand-green bg-brand-green/10 border border-brand-green/20 px-2.5 py-1 rounded-md font-semibold">
+                          <Clock size={12} className="inline mr-1" /> Weekly Tests
+                        </span>
+                        <span className="text-xs text-brand-amber bg-brand-amber/10 border border-brand-amber/20 px-2.5 py-1 rounded-md font-semibold">
+                          <Target size={12} className="inline mr-1" /> Syllabus Focus
+                        </span>
+                      </div>
+                      <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">
+                        {lang === 'mr' ? 'विषय' : 'Subjects'}
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {course.subjects.split(',').slice(0, 3).map((s: string) => (
+                          <span key={s} className="text-xs text-slate-300 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">{s.trim()}</span>
+                        ))}
+                        {course.subjects.split(',').length > 3 && (
+                          <span className="text-xs text-slate-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-md">+{course.subjects.split(',').length - 3}</span>
+                        )}
+                      </div>
                     </div>
-                    <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">
-                      {lang === 'mr' ? 'विषय' : 'Subjects'}
-                    </p>
-                    <div className="flex flex-wrap gap-1.5">
-                      {course.subjects.split(',').slice(0, 3).map((s: string) => (
-                        <span key={s} className="text-xs text-slate-300 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">{s.trim()}</span>
-                      ))}
-                      {course.subjects.split(',').length > 3 && (
-                        <span className="text-xs text-slate-400 bg-white/5 border border-white/10 px-2 py-0.5 rounded-md">+{course.subjects.split(',').length - 3} more</span>
-                      )}
-                    </div>
-                  </div>
 
-                  <div className="flex flex-col gap-2">
-                    <Link
-                      href={`/${lang}/courses/${courseSlug}`}
-                      className={`flex items-center justify-center gap-2 py-2.5 px-4 border rounded-xl text-sm font-semibold transition-all ${style.btnClass}`}
-                    >
-                      {lang === 'mr' ? 'अभ्यासक्रम पहा' : 'View Course Details'}
-                      <ArrowRight size={14} />
-                    </Link>
-                    <a
-                      href="#enroll-form"
-                      className="flex items-center justify-center gap-2 py-2 px-4 text-slate-400 hover:text-white text-xs font-medium transition-colors"
-                    >
-                      {lang === 'mr' ? 'प्रवेश नोंदणी करा →' : 'Enroll Now →'}
-                    </a>
+                    <div className="flex flex-col gap-3 mt-auto">
+                      <a
+                        href="#enroll-form"
+                        className="flex items-center justify-center gap-2 py-3 px-4 bg-brand-green hover:bg-green-500 text-white rounded-xl text-sm font-bold shadow-lg shadow-brand-green/20 transition-all hover:scale-105"
+                      >
+                        {lang === 'mr' ? 'मोफत डेमो क्लास बूक करा' : 'Book Free Demo Class'}
+                      </a>
+                      <Link
+                        href={`/${lang}/courses/${courseSlug}`}
+                        className={`flex items-center justify-center gap-2 py-3 px-4 border rounded-xl text-sm font-bold transition-all ${style.btnClass}`}
+                      >
+                        {lang === 'mr' ? 'अभ्यासक्रम पहा' : 'View Details'}
+                        <ArrowRight size={16} />
+                      </Link>
+                    </div>
                   </div>
                 </div>
               );
@@ -370,16 +382,19 @@ export default async function HomePage({ params }: Props) {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {WHY_FEATURES.map((feat, i) => {
               const Icon = feat.icon;
               return (
-                <div key={i} className="bg-white/3 border border-white/10 rounded-2xl p-6 hover:bg-white/5 hover:border-white/20 hover:-translate-y-1 transition-all duration-300 group">
-                  <div className="w-12 h-12 bg-brand-green/15 border border-brand-green/30 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand-green/25 transition-colors">
-                    <Icon size={22} className="text-brand-green" />
+                <div key={i} className="relative group bg-[#0F2E5A] border border-white/5 rounded-3xl p-8 hover:bg-[#13386e] hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(34,197,94,0.1)] transition-all duration-500 overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-br from-brand-green/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  <div className="relative z-10">
+                    <div className="w-14 h-14 bg-[#091c38] border border-brand-green/20 rounded-2xl flex items-center justify-center mb-6 shadow-inner group-hover:scale-110 group-hover:border-brand-green/40 transition-all duration-500">
+                      <Icon size={26} className="text-brand-green" />
+                    </div>
+                    <h3 className="text-white font-bold mb-3 text-lg">{l(feat.title)}</h3>
+                    <p className="text-slate-400 text-sm leading-relaxed">{l(feat.desc)}</p>
                   </div>
-                  <h3 className="text-white font-bold mb-2 text-base">{l(feat.title)}</h3>
-                  <p className="text-slate-400 text-sm leading-relaxed">{l(feat.desc)}</p>
                 </div>
               );
             })}
