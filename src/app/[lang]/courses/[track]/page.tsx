@@ -125,9 +125,9 @@ export default async function CourseDetailPage({ params }: Props) {
 
             {/* Quick CTAs */}
             <div className="flex flex-wrap gap-3">
-              <a href="#demo-form-course" className="flex items-center gap-2 px-6 py-3 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 text-sm">
+              <a href="#enroll-form-course" className="flex items-center gap-2 px-6 py-3 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 text-sm">
                 <Calendar size={16} />
-                Book Free Demo Class
+                Enroll Now
               </a>
               <a href={waLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 bg-green-600/20 border border-green-500/40 text-green-400 font-semibold rounded-xl hover:bg-green-600/30 transition-all text-sm">
                 <MessageCircle size={16} />
@@ -324,9 +324,9 @@ export default async function CourseDetailPage({ params }: Props) {
                 <span className="text-slate-400 text-xs ml-1">Excellent</span>
               </div>
 
-              <a href="#demo-form-course" className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold w-full mb-3 transition-all ${accent.color === 'text-brand-amber' ? 'bg-brand-amber text-white hover:bg-amber-500' : 'bg-brand-green text-white hover:bg-green-500'}`}>
+              <a href="#enroll-form-course" className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold w-full mb-3 transition-all ${accent.color === 'text-brand-amber' ? 'bg-brand-amber text-white hover:bg-amber-500' : 'bg-brand-green text-white hover:bg-green-500'}`}>
                 <Calendar size={16} />
-                Book Free Demo Class
+                Enroll Now
               </a>
               <a href={waLink} target="_blank" rel="noopener noreferrer"
                 className="flex items-center justify-center gap-2 py-2.5 px-4 border border-green-500/40 text-green-400 font-semibold rounded-xl hover:bg-green-600/10 transition-all text-sm w-full">
@@ -337,10 +337,10 @@ export default async function CourseDetailPage({ params }: Props) {
           </div>
         </div>
 
-        {/* Demo Form */}
-        <div id="demo-form-course" className="mt-12 pt-8 border-t border-white/10">
+        {/* Enroll Form */}
+        <div id="enroll-form-course" className="mt-12 pt-8 border-t border-white/10">
           <h2 className="text-2xl font-bold text-white mb-6 text-center">
-            Interested in {course.title}? Book a Free Demo Class
+            Interested in {course.title}? Enroll Now
           </h2>
           <DemoFormClient lang={lang} />
         </div>

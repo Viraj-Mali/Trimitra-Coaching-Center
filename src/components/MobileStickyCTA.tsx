@@ -19,7 +19,7 @@ export default function MobileStickyCTA({ phone, whatsapp, lang }: { phone: stri
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20a%20free%20demo%20class%20at%20Trimitra%20Coaching%20Centre.`;
+  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20at%20Trimitra%20Coaching%20Centre.`;
 
   return (
     <div

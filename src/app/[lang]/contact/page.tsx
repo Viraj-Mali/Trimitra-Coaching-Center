@@ -14,14 +14,14 @@ export default async function ContactPage({ params }: Props) {
   const phone = settings?.phone || dict.footer.phone;
   const email = settings?.email || dict.footer.email;
   const whatsapp = settings?.whatsapp || '9665269059';
-  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20a%20free%20demo%20class%20at%20Trimitra%20Coaching%20Centre.`;
+  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20at%20Trimitra%20Coaching%20Centre.`;
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14">
           <h1 className="section-title">Contact Us</h1>
-          <p className="section-subtitle">Reach out to us for admissions, queries, or to book a demo class.</p>
+          <p className="section-subtitle">Reach out to us for admissions, queries, or to enroll in our classes.</p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">

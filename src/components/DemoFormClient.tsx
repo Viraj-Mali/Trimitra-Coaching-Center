@@ -90,8 +90,8 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
         </h3>
         <p className="text-slate-300 mb-4">
           {lang === 'mr'
-            ? 'तुमची नोंदणी यशस्वी झाली. आम्ही २४ तासांत तुम्हाला कॉल करू.'
-            : 'Your demo class request has been received. We will call you within 24 hours to confirm your slot.'}
+            ? 'तुमची प्रवेश नोंदणी यशस्वी झाली. आम्ही २४ तासांत तुम्हाला संपर्क करू.'
+            : 'Your enrollment inquiry has been received. We will contact you within 24 hours to guide you next.'}
         </p>
         <p className="text-slate-400 text-sm">
           {lang === 'mr'
@@ -108,12 +108,12 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
   return (
     <div className="bg-white/3 border border-white/10 rounded-2xl p-6 lg:p-7">
       <h3 className="text-white font-bold text-xl mb-1">
-        {lang === 'mr' ? 'डेमो वर्गासाठी नोंदणी करा' : 'Book Your Free Demo Class'}
+        {lang === 'mr' ? 'प्रवेशासाठी नोंदणी करा' : 'Register / Enroll Now'}
       </h3>
       <p className="text-slate-400 text-sm mb-6">
         {lang === 'mr'
-          ? 'खाली तपशील भरा. आम्ही २४ तासांत संपर्क करू.'
-          : 'Fill in the details below. We\'ll contact you within 24 hours.'}
+          ? 'खाली तपशील भरा. आम्ही २४ तासांत तुमच्याशी संपर्क साधू.'
+          : 'Fill in the details below to secure your seat. We will contact you within 24 hours.'}
       </p>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -179,13 +179,13 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
 
         <div>
           <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
-            {lang === 'mr' ? 'पसंतीची वेळ *' : 'Preferred Demo Time *'}
+            {lang === 'mr' ? 'पसंतीची वेळ *' : 'Preferred Batch Time *'}
           </label>
           <div className="relative">
             <Clock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
             <select required value={form.preferredTime} onChange={set('preferredTime')}
               className="w-full pl-9 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-brand-green transition-all text-sm appearance-none cursor-pointer">
-              <option value="" className="bg-[#0F2E5A]">{lang === 'mr' ? 'वेळ निवडा' : 'Select preferred time'}</option>
+              <option value="" className="bg-[#0F2E5A]">{lang === 'mr' ? 'वेळ निवडा' : 'Select preferred batch timing'}</option>
               {TIME_SLOTS.map(t => <option key={t} value={t} className="bg-[#0F2E5A]">{t}</option>)}
             </select>
           </div>
@@ -215,7 +215,7 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
           {status === 'loading' ? (
             <><Loader2 size={18} className="animate-spin" /> {lang === 'mr' ? 'सादर होत आहे...' : 'Submitting...'}</>
           ) : (
-            lang === 'mr' ? '📅 मोफत डेमो वर्ग बुक करा' : '📅 Book Free Demo Class'
+            lang === 'mr' ? '📝 आताच प्रवेश नोंदणी करा' : '📝 Enroll Now'
           )}
         </button>
 

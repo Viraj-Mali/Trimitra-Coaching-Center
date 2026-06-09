@@ -12,7 +12,7 @@ const quickLinks = [
   { href: '#why-us', label: { en: 'Why Trimitra', mr: 'त्रिमित्र का?' } },
   { href: '#mentor', label: { en: 'About Mentor', mr: 'मार्गदर्शकाबद्दल' } },
   { href: '#gallery', label: { en: 'Gallery', mr: 'गॅलरी' } },
-  { href: '#demo-form', label: { en: 'Book Demo Class', mr: 'डेमो वर्ग' } },
+  { href: '#enroll-form', label: { en: 'Enroll Now', mr: 'प्रवेश नोंदणी' } },
 ];
 
 const courseLinks = [
@@ -34,7 +34,7 @@ export default async function Footer({ lang = 'en' }: FooterProps) {
   const insta = settings?.instagram || '#';
   const yt = settings?.youtube || '#';
 
-  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20a%20free%20demo%20class%20at%20Trimitra%20Coaching%20Centre.`;
+  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20at%20Trimitra%20Coaching%20Centre.`;
 
   return (
     <footer className="bg-[#091c38] border-t border-white/10">

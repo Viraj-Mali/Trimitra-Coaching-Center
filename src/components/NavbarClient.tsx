@@ -107,11 +107,11 @@ export default function NavbarClient({ lang, studentName, studentRole, logoUrl }
                   <LogIn size={14} /> {lang === 'mr' ? 'लॉगिन' : 'Student Login'}
                 </Link>
                 <a
-                  href="#demo-form"
-                  onClick={(e) => handleAnchor(e, '#demo-form')}
+                  href="#enroll-form"
+                  onClick={(e) => handleAnchor(e, '#enroll-form')}
                   className="flex items-center gap-1.5 px-4 py-2 text-sm font-semibold text-white bg-brand-amber hover:bg-amber-500 rounded-xl transition-all shadow-md hover:shadow-amber-500/30"
                 >
-                  <CalendarCheck size={14} /> {lang === 'mr' ? 'डेमो बुक करा' : 'Book Free Demo'}
+                  <CalendarCheck size={14} /> {lang === 'mr' ? 'प्रवेश नोंदणी' : 'Enroll Now'}
                 </a>
               </>
             )}
@@ -157,11 +157,11 @@ export default function NavbarClient({ lang, studentName, studentRole, logoUrl }
                   {lang === 'mr' ? 'विद्यार्थी लॉगिन' : 'Student Login'}
                 </Link>
                 <a
-                  href="#demo-form"
-                  onClick={(e) => handleAnchor(e, '#demo-form')}
+                  href="#enroll-form"
+                  onClick={(e) => handleAnchor(e, '#enroll-form')}
                   className="block w-full py-3 text-center text-sm font-semibold text-white bg-brand-amber rounded-xl"
                 >
-                  {lang === 'mr' ? 'मोफत डेमो बुक करा' : 'Book Free Demo Class'}
+                  {lang === 'mr' ? 'प्रवेशासाठी नोंदणी करा' : 'Enroll Now'}
                 </a>
               </>
             )}

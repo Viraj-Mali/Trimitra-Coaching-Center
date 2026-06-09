@@ -52,7 +52,7 @@ export default async function HomePage({ params }: Props) {
   const heroHeadline = settings?.heroHeadline || 'Personal Coaching for Class 6th to 12th, Board Exams & Competitive Exams';
   const heroSub = settings?.heroSubheadline || 'Focused mentorship, small batches, regular tests, doubt-solving sessions, and progress tracking under the expert guidance of Dr. Sarthak Dighe.';
 
-  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20a%20free%20demo%20class%20at%20Trimitra%20Coaching%20Centre.`;
+  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20at%20Trimitra%20Coaching%20Centre.`;
 
   const l = (obj: { en: string; mr: string }) => obj[lang as 'en' | 'mr'] || obj.en;
 
@@ -104,9 +104,9 @@ export default async function HomePage({ params }: Props) {
               </p>
 
               <div className="flex flex-wrap gap-3 mb-10">
-                <a href="#demo-form" className="flex items-center gap-2 px-5 py-3 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 hover:scale-105">
+                <a href="#enroll-form" className="flex items-center gap-2 px-5 py-3 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 hover:scale-105">
                   <CalendarCheck size={18} />
-                  {lang === 'mr' ? 'मोफत डेमो' : 'Book Free Demo'}
+                  {lang === 'mr' ? 'प्रवेश नोंदणी' : 'Enroll Now'}
                 </a>
                 <a href={waLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-xl shadow-lg shadow-green-500/30 transition-all hover:scale-105">
                   <MessageCircle size={18} />
@@ -262,10 +262,10 @@ export default async function HomePage({ params }: Props) {
                       <ArrowRight size={14} />
                     </Link>
                     <a
-                      href="#demo-form"
+                      href="#enroll-form"
                       className="flex items-center justify-center gap-2 py-2 px-4 text-slate-400 hover:text-white text-xs font-medium transition-colors"
                     >
-                      {lang === 'mr' ? 'डेमो बुक करा →' : 'Book Free Demo →'}
+                      {lang === 'mr' ? 'प्रवेश नोंदणी करा →' : 'Enroll Now →'}
                     </a>
                   </div>
                 </div>
@@ -410,18 +410,18 @@ export default async function HomePage({ params }: Props) {
         </section>
       )}
 
-      {/* ── 7. DEMO FORM ─────────────────────────────────────────────── */}
-      <section id="demo-form" className="py-20 px-4 sm:px-6 lg:px-8">
+      {/* ── 7. ENROLL FORM ────────────────────────────────────────────── */}
+      <section id="enroll-form" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
           <div className="grid lg:grid-cols-5 gap-10">
 
             {/* Left Info */}
             <div className="lg:col-span-2">
               <p className="text-brand-amber text-sm font-semibold uppercase tracking-wider mb-2">
-                {lang === 'mr' ? 'मोफत संधी' : 'Free Opportunity'}
+                {lang === 'mr' ? 'प्रवेश प्रक्रिया' : 'Admissions Open'}
               </p>
               <h2 className="text-3xl font-bold text-white mb-4">
-                {lang === 'mr' ? 'मोफत डेमो वर्ग बुक करा' : 'Book Your Free Demo Class'}
+                {lang === 'mr' ? 'प्रवेशासाठी नोंदणी करा' : 'Register / Enroll Now'}
               </h2>
               <p className="text-slate-400 mb-6 leading-relaxed">
                 {lang === 'mr'
