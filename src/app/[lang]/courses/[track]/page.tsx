@@ -312,15 +312,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const course = await prisma.course.findFirst({ where: { OR: [{ slug: track }, { targetTrack }] } });
     if (!course) return { title: 'Course | Trimitra Coaching Centre' };
     return {
-      title: course.metaTitle || `${course.title} | Trimitra Coaching Centre, Talegaon Dighe Pune`,
-      description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe, Pune. Small batches, personal attention, structured preparation.`,
-      keywords: `${course.title} coaching Pune, ${course.targetClass} tuition Talegaon Dighe, best coaching classes Pune`,
+      title: course.metaTitle || `${course.title} | Trimitra Coaching Centre, Talegaon Dighe`,
+      description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe near Sangamner. Small batches, personal attention, structured preparation.`,
+      keywords: `${course.title} coaching near Sangamner, ${course.targetClass} tuition Talegaon Dighe, best coaching classes near Sangamner`,
+      openGraph: {
+        title: course.metaTitle || `${course.title} Coaching | Trimitra`,
+        description: course.metaDescription || `Expert coaching for ${course.title}. Enroll now at Trimitra Coaching Centre.`,
+      },
     };
   } catch (e) {
     console.error('Failed to generate metadata from DB:', e);
     return {
       title: 'Course | Trimitra Coaching Centre',
-      description: 'Expert coaching for School Board and Competitive Exams in Talegaon Dighe, Pune.',
+      description: 'Expert coaching for School Board and Competitive Exams in Talegaon Dighe near Sangamner.',
     };
   }
 }

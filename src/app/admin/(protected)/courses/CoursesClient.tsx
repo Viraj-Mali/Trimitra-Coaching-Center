@@ -200,11 +200,11 @@ export default function CoursesClient() {
                 </div>
                 <div className="sm:col-span-2">
                   <label className="text-xs text-slate-400 font-semibold uppercase tracking-wider block mb-1.5">Meta Title (for Google)</label>
-                  <input type="text" placeholder="10th Board Coaching Pune | Trimitra..." value={form.metaTitle} onChange={e => setForm(f => ({ ...f, metaTitle: e.target.value }))} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-green text-sm" />
+                  <input type="text" placeholder="10th Board Coaching Talegaon Dighe | Trimitra..." value={form.metaTitle} onChange={e => setForm(f => ({ ...f, metaTitle: e.target.value }))} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-green text-sm" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="text-xs text-slate-400 font-semibold uppercase tracking-wider block mb-1.5">Meta Description (for Google, ~155 chars)</label>
-                  <textarea rows={2} placeholder="Best 10th SSC coaching in Talegaon Dighe, Pune..." value={form.metaDescription} onChange={e => setForm(f => ({ ...f, metaDescription: e.target.value }))} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-green text-sm resize-none" />
+                  <textarea rows={2} placeholder="Best 10th SSC coaching in Talegaon Dighe near Sangamner..." value={form.metaDescription} onChange={e => setForm(f => ({ ...f, metaDescription: e.target.value }))} className="w-full px-4 py-2.5 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-brand-green text-sm resize-none" />
                 </div>
                 <div className="sm:col-span-2">
                   <label className="flex items-center gap-2.5 cursor-pointer">

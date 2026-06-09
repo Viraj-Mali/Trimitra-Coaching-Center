@@ -62,8 +62,8 @@ export default async function HomePage({ params }: Props) {
   const whatsapp = settings?.whatsapp || '9665269059';
   const phone = settings?.phone || '9665269059';
   const email = settings?.email || 'info@trimitra.in';
-  const address = settings?.address || '2nd Floor Society Complex, Talegaon Dighe, Pune, Maharashtra';
-  const mapsLink = settings?.mapsLink || 'https://maps.google.com/?q=Talegaon+Dighe+Pune';
+  const address = settings?.address || '2nd Floor, Society Complex, Talegaon Dighe, Tal. Sangamner, Dist. Ahmednagar, Maharashtra';
+  const mapsLink = settings?.mapsLink || 'https://maps.google.com/?q=Talegaon+Dighe+Sangamner';
   const heroHeadline = settings?.heroHeadline || 'Personal Coaching for Class 6th to 12th, Board Exams & Competitive Exams';
   const heroSub = settings?.heroSubheadline || 'Focused mentorship, small batches, regular tests, doubt-solving sessions, and progress tracking under the expert guidance of Dr. Sarthak Dighe.';
 
@@ -174,7 +174,7 @@ export default async function HomePage({ params }: Props) {
               <div className="relative rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
                 <Image
                   src="/hero-classroom.jpg"
-                  alt="Dr. Sarthak Dighe teaching students at Trimitra Coaching Centre, Talegaon Dighe Pune"
+                  alt="Dr. Sarthak Dighe teaching students at Trimitra Coaching Centre, Talegaon Dighe"
                   width={600}
                   height={420}
                   className="object-cover w-full h-[420px]"
@@ -578,7 +578,7 @@ export default async function HomePage({ params }: Props) {
               {lang === 'mr' ? 'आमच्याशी संपर्क साधा' : 'Visit or Contact Us'}
             </h2>
             <p className="text-slate-400">
-              {lang === 'mr' ? 'आम्ही ताळेगाव दिघे, पुणे येथे आहोत.' : "We're based in Talegaon Dighe, Pune — and happy to answer any questions."}
+              {lang === 'mr' ? 'आम्ही तळेगाव दिघे, ता. संगमनेर येथे आहोत.' : "We're based in Talegaon Dighe, Tal. Sangamner — and happy to answer any questions."}
             </p>
           </div>
 
@@ -625,7 +625,7 @@ export default async function HomePage({ params }: Props) {
           {/* Google Maps Embed */}
           <div className="bg-white/3 border border-white/10 rounded-2xl overflow-hidden h-64">
             <iframe
-              src={`https://maps.google.com/maps?q=Talegaon+Dighe+Pune+Maharashtra&output=embed&z=14`}
+              src={`https://maps.google.com/maps?q=Talegaon+Dighe+Sangamner+Maharashtra&output=embed&z=14`}
               width="100%"
               height="100%"
               style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) brightness(0.8)' }}

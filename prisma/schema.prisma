@@ -283,7 +283,7 @@ model SiteSettings {
   phone           String   @default("+91 99990 00000")
   whatsapp        String   @default("9665269059")
   email           String   @default("info@trimitra.in")
-  address         String   @default("Trimitra Coaching Centre, Pune, Maharashtra")
+  address         String   @default("Trimitra Coaching Centre, Talegaon Dighe, Tal. Sangamner, Dist. Ahmednagar, Maharashtra")
   logoUrl         String?  @default("/logo.png")
   mentorImageUrl  String?  @default("/mentor-sarthak.png")
   mapsLink        String?

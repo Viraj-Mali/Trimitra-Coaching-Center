@@ -13,16 +13,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const lang = params.lang;
   return {
     title: lang === 'mr'
-      ? 'त्रिमित्र कोचिंग सेंटर | JEE, NEET, MHT-CET, बोर्ड परीक्षांसाठी तज्ञ शिकवणी'
-      : 'Trimitra Coaching Centre | Expert Coaching for JEE, NEET, MHT-CET & Board Exams in Pune',
+      ? 'त्रिमित्र कोचिंग सेंटर | तळेगाव दिघे, संगमनेर'
+      : 'Trimitra Coaching Centre | Talegaon Dighe',
     description: lang === 'mr'
-      ? 'पुण्यातील अग्रगण्य शिकवणी केंद्र. डॉ. सार्थक दिघे यांच्या मार्गदर्शनाखाली लहान बॅचेस, वैयक्तिक लक्ष आणि उत्कृष्ट तयारी.'
-      : "Pune's trusted coaching centre under Dr. Sarthak Dighe. Small batches, personal attention, and conceptual guidance for JEE, NEET, MHT-CET, NATA, and SSC/HSC Board exams.",
+      ? 'तळेगाव दिघे जवळील संगमनेर येथे ६वी ते १२वी, बोर्ड परीक्षा, JEE, NEET आणि MHT-CET साठी वैयक्तिक मार्गदर्शन.'
+      : 'Trimitra Coaching Centre offers small-batch coaching for Class 6th–12th, Board Exams, JEE, NEET and MHT-CET in Talegaon Dighe near Sangamner, Ahmednagar.',
     keywords: lang === 'mr'
       ? ['त्रिमित्र कोचिंग', 'तळेगाव दिघे कोचिंग', 'संगमनेर जवळ कोचिंग', 'JEE कोचिंग', 'NEET कोचिंग', 'MHT-CET', 'बोर्ड परीक्षा']
-      : ['Trimitra Coaching Centre', 'coaching classes in Talegaon Dighe', 'JEE coaching near Sangamner', 'NEET coaching', 'MHT-CET coaching', '10th Board coaching Pune', 'HSC coaching'],
+      : ['Trimitra Coaching Centre', 'coaching classes in Talegaon Dighe', 'JEE coaching near Sangamner', 'NEET coaching', 'MHT-CET coaching', '10th Board coaching', 'HSC coaching'],
     openGraph: {
-      title: 'Trimitra Coaching Centre, Pune',
+      title: 'Trimitra Coaching Centre, Talegaon Dighe',
       description: 'Expert coaching for Class 6th to 12th, JEE, NEET, MHT-CET, and Board exams.',
       type: 'website',
       locale: lang === 'mr' ? 'mr_IN' : 'en_IN',

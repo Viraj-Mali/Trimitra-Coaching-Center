@@ -20,7 +20,7 @@ export async function GET() {
         phone: '9665269059',
         whatsapp: '9665269059',
         email: 'info@trimitra.in',
-        address: '2nd Floor Society Complex, Talegaon Dighe, Pune, Maharashtra — 424611',
+        address: '2nd Floor, Society Complex, Talegaon Dighe, Tal. Sangamner, Dist. Ahmednagar, Maharashtra',
         logoUrl: '/logo.png',
         mentorImageUrl: '/mentor-sarthak.png',
         heroHeadline: 'Personal Coaching for Class 6th to 12th, Board Exams & Competitive Exams',

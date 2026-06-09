@@ -195,7 +195,7 @@ export default function SettingsClient() {
               <Field label="Address">
                 <input
                   type="text"
-                  placeholder="e.g. 123, Main Street, Pune, Maharashtra - 424611"
+                  placeholder="e.g. 2nd Floor, Society Complex, Talegaon Dighe, Tal. Sangamner, Dist. Ahmednagar, Maharashtra"
                   value={form.address}
                   onChange={set('address')}
                   className={inputCls}

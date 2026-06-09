@@ -6,11 +6,11 @@ import { Toaster } from 'react-hot-toast';
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 export const metadata: Metadata = {
-  title: 'Trimitra Coaching Centre | Expert Coaching for JEE, NEET, MHT-CET, Board Exams',
+  title: 'Trimitra Coaching Centre | Coaching Classes in Talegaon Dighe near Sangamner',
   description: 'Maharashtra\'s premier coaching centre for Foundation (6th–9th), 10th Board, 11th–12th Science, and Competitive exams (IIT-JEE, NEET, MHT-CET, NATA) under Dr. Sarthak Dighe.',
   keywords: 'coaching classes in Talegaon Dighe, coaching classes near Sangamner, JEE coaching near Sangamner, NEET coaching near Sangamner, MHT-CET coaching near Sangamner, 10th board coaching, 11th 12th Science coaching',
   openGraph: {
-    title: 'Trimitra Coaching Centre | Expert Coaching in Pune',
+    title: 'Trimitra Coaching Centre | Talegaon Dighe',
     description: 'Expert coaching for academic excellence and competitive exam success. Foundation, Board Exams, Science, JEE, and NEET.',
     url: 'https://trimitra-coaching-center.vercel.app',
     siteName: 'Trimitra Coaching Centre',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
         url: '/hero-classroom.jpg',
         width: 1200,
         height: 630,
-        alt: 'Trimitra Coaching Centre Pune',
+        alt: 'Trimitra Coaching Centre',
       },
     ],
     locale: 'en_IN',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Trimitra Coaching Centre | Pune',
+    title: 'Trimitra Coaching Centre | Talegaon Dighe',
     description: 'Expert coaching for academic excellence and competitive exam success.',
     images: ['/hero-classroom.jpg'],
   },
@@ -59,15 +59,14 @@ const localBusinessSchema = {
   telephone: '+919665269059',
   address: {
     '@type': 'PostalAddress',
-    streetAddress: '2nd Floor Society Complex',
-    addressLocality: 'Talegaon Dighe',
+    streetAddress: '2nd Floor, Society Complex',
+    addressLocality: 'Talegaon Dighe, Tal. Sangamner',
     addressRegion: 'Maharashtra',
-    postalCode: '424611',
     addressCountry: 'IN',
   },
   geo: {
     '@type': 'GeoCoordinates',
-    latitude: 18.52043, // Using standard Pune coords; update if needed
+    latitude: 18.52043, // Note: Currently generic coords; update to exact Sangamner coordinates when confirmed
     longitude: 73.856743,
   },
   sameAs: [
