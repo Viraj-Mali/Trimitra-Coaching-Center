@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 export const metadata: Metadata = {
   title: 'Trimitra Coaching Centre | Expert Coaching for JEE, NEET, MHT-CET, Board Exams',
   description: 'Maharashtra\'s premier coaching centre for Foundation (6th–9th), 10th Board, 11th–12th Science, and Competitive exams (IIT-JEE, NEET, MHT-CET, NATA) under Dr. Sarthak Dighe.',
-  keywords: 'coaching centre pune, JEE coaching pune, NEET coaching pune, MHT-CET coaching, 10th board coaching Maharashtra, SSC coaching',
+  keywords: 'coaching classes in Talegaon Dighe, coaching classes near Sangamner, JEE coaching near Sangamner, NEET coaching near Sangamner, MHT-CET coaching near Sangamner, 10th board coaching, 11th 12th Science coaching',
   openGraph: {
     title: 'Trimitra Coaching Centre | Expert Coaching in Pune',
     description: 'Expert coaching for academic excellence and competitive exam success. Foundation, Board Exams, Science, JEE, and NEET.',
@@ -60,9 +60,9 @@ const localBusinessSchema = {
   address: {
     '@type': 'PostalAddress',
     streetAddress: '2nd Floor Society Complex',
-    addressLocality: 'Talegaon Dighe, Pune',
+    addressLocality: 'Talegaon Dighe',
     addressRegion: 'Maharashtra',
-    postalCode: '412214',
+    postalCode: '424611',
     addressCountry: 'IN',
   },
   geo: {

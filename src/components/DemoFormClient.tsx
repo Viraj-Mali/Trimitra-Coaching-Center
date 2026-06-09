@@ -12,13 +12,7 @@ const TRACKS = [
   { value: 'COMPETITIVE_MHTCET', label: 'MHT-CET (PCMB Group)' },
   { value: 'COMPETITIVE_NATA', label: 'NATA' },
 ];
-const TIME_SLOTS = [
-  'Morning (7:00 AM – 9:00 AM)',
-  'Late Morning (10:00 AM – 12:00 PM)',
-  'Afternoon (2:00 PM – 4:00 PM)',
-  'Evening (5:00 PM – 7:00 PM)',
-  'Any time works',
-];
+
 
 interface DemoFormClientProps {
   lang?: string;
@@ -27,7 +21,7 @@ interface DemoFormClientProps {
 export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
   const [form, setForm] = useState({
     studentName: '', parentName: '', mobile: '',
-    standard: '', track: '', preferredTime: '', notes: '',
+    standard: '', track: '', notes: '',
   });
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMsg, setErrorMsg] = useState('');
@@ -67,7 +61,7 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
       const data = await res.json();
       if (res.ok) {
         setStatus('success');
-        setForm({ studentName: '', parentName: '', mobile: '', standard: '', track: '', preferredTime: '', notes: '' });
+        setForm({ studentName: '', parentName: '', mobile: '', standard: '', track: '', notes: '' });
       } else {
         setErrorMsg(data.error || (lang === 'mr' ? 'काहीतरी चुकले. पुन्हा प्रयत्न करा.' : 'Something went wrong. Please try again.'));
         setStatus('error');
@@ -92,12 +86,21 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
             ? 'तुमची प्रवेश नोंदणी यशस्वी झाली. आम्ही २४ तासांत तुम्हाला संपर्क करू.'
             : 'Your enrollment inquiry has been received. We will contact you within 24 hours to guide you next.'}
         </p>
-        <p className="text-slate-400 text-sm">
+        <p className="text-slate-400 text-sm mb-4">
           {lang === 'mr'
             ? 'त्वरित संपर्कासाठी WhatsApp वर आम्हाला संदेश पाठवा.'
-            : 'For immediate assistance, WhatsApp us at +91 99990 00000'}
+            : 'For immediate assistance, send us your details on WhatsApp.'}
         </p>
-        <button onClick={() => setStatus('idle')} className="mt-6 text-brand-green text-sm hover:underline">
+        <a
+          href={`https://wa.me/919665269059?text=Hello,%20I%20have%20submitted%20an%20inquiry.%0AStudent:%20${encodeURIComponent(form.studentName)}%0AStandard:%20${encodeURIComponent(form.standard)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold py-2.5 px-5 rounded-xl transition-all"
+        >
+          {lang === 'mr' ? 'WhatsApp वर माहिती पाठवा' : 'Send details via WhatsApp'}
+        </a>
+        <br/>
+        <button onClick={() => {setStatus('idle'); setForm({ studentName: '', parentName: '', mobile: '', standard: '', track: '', notes: '' });}} className="mt-6 text-brand-green text-sm hover:underline">
           {lang === 'mr' ? 'दुसरी चौकशी करा' : 'Submit Another Enquiry'}
         </button>
       </div>
@@ -176,19 +179,7 @@ export default function DemoFormClient({ lang = 'en' }: DemoFormClientProps) {
           </div>
         </div>
 
-        <div>
-          <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">
-            {lang === 'mr' ? 'पसंतीची वेळ *' : 'Preferred Batch Time *'}
-          </label>
-          <div className="relative">
-            <Clock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 pointer-events-none" />
-            <select required value={form.preferredTime} onChange={set('preferredTime')}
-              className="w-full pl-9 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none focus:border-brand-green transition-all text-sm appearance-none cursor-pointer">
-              <option value="" className="bg-[#0F2E5A]">{lang === 'mr' ? 'वेळ निवडा' : 'Select preferred batch timing'}</option>
-              {TIME_SLOTS.map(t => <option key={t} value={t} className="bg-[#0F2E5A]">{t}</option>)}
-            </select>
-          </div>
-        </div>
+
 
         <div>
           <label className="text-xs font-semibold text-slate-400 uppercase tracking-wider block mb-1.5">

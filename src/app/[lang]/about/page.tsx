@@ -39,7 +39,7 @@ export default async function AboutPage({ params }: Props) {
               <h2 className="text-white font-bold text-2xl">Dr. Sarthak Dighe</h2>
               <p className="text-brand-green font-medium">Founder & Head Mentor</p>
               <div className="flex flex-wrap justify-center gap-2 mt-3">
-                {['BAMS', 'JEE/NEET/NATA Mentor'].map(tag => (
+                {['BAMS', 'Physics & Mathematics Specialist', 'JEE/NEET/NATA Mentor'].map(tag => (
                   <span key={tag} className="badge bg-brand-green/10 text-brand-green border-brand-green/20 text-xs">{tag}</span>
                 ))}
               </div>
@@ -50,7 +50,7 @@ export default async function AboutPage({ params }: Props) {
                 My vision for Trimitra has always been to create an environment where every student feels seen, guided, and empowered to achieve their best. Education is not just about marks — it is about building the confidence to tackle any challenge.
               </p>
               <p className="text-slate-400 leading-relaxed">
-                Dr. Dighe has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His personal involvement in each batch ensures that every student builds a strong academic foundation and receives individual attention.
+                Students receive concept-first teaching, personal doubt-solving, and structured exam preparation under direct mentor guidance. Dr. Sarthak Dighe is a BAMS graduate and a dedicated Physics & Mathematics specialist passionate about simplifying complex concepts for board and competitive exams. His personal involvement in each batch ensures that every student builds a strong academic foundation and receives individual attention.
               </p>
             </div>
           </div>

@@ -22,14 +22,14 @@ const COURSE_STYLES = [
 ];
 
 const WHY_FEATURES = [
-  { icon: Users, title: { en: 'Small Batch Sizes', mr: 'लहान बॅच' }, desc: { en: 'Max 15–20 students per batch. Every student gets noticed, not lost in a crowd.', mr: 'प्रति बॅच जास्तीत जास्त १५-२० विद्यार्थी.' } },
-  { icon: Shield, title: { en: 'Personal Attention', mr: 'वैयक्तिक लक्ष' }, desc: { en: 'Dr. Sarthak personally tracks each student\'s progress and adapts the teaching.', mr: 'डॉ. सार्थक प्रत्येक विद्यार्थ्याच्या प्रगतीचा वैयक्तिकरित्या मागोवा घेतात.' } },
-  { icon: Target, title: { en: 'Regular Weekly Tests', mr: 'साप्ताहिक चाचण्या' }, desc: { en: 'Chapter-wise and full-syllabus tests in exact board/entrance pattern every week.', mr: 'दर आठवड्याला अध्याय-निहाय आणि संपूर्ण अभ्यासक्रम चाचण्या.' } },
-  { icon: Lightbulb, title: { en: 'Doubt Solving Sessions', mr: 'शंका-निराकरण' }, desc: { en: 'Dedicated doubt-solving sessions after every class. No question goes unanswered.', mr: 'प्रत्येक वर्गानंतर समर्पित शंका-निराकरण सत्रे.' } },
-  { icon: Bell, title: { en: 'Parent Progress Updates', mr: 'पालकांना अपडेट' }, desc: { en: 'Monthly progress reports and direct parent-teacher communication so parents are always informed.', mr: 'मासिक प्रगती अहवाल आणि थेट पालक-शिक्षक संवाद.' } },
-  { icon: BookOpen, title: { en: 'Concept-Based Teaching', mr: 'संकल्पना-आधारित शिक्षण' }, desc: { en: 'We don\'t teach to memorise — we teach to understand. Concepts first, formulas follow.', mr: 'आम्ही पाठांतरासाठी नाही — समजण्यासाठी शिकवतो.' } },
-  { icon: Award, title: { en: 'Exam-Focused Strategy', mr: 'परीक्षा-केंद्रित धोरण' }, desc: { en: 'Targeted preparation with previous year papers, expected questions, and marking strategies.', mr: 'मागील वर्षांचे प्रश्न, अपेक्षित प्रश्न आणि गुण मिळवण्याच्या धोरणासह लक्ष्यित तयारी.' } },
-  { icon: BarChart3, title: { en: 'Progress Tracking App', mr: 'प्रगती ट्रॅकिंग' }, desc: { en: 'Modern student dashboard with daily quizzes, XP system, chapter progress, and test scores.', mr: 'दैनिक क्विझ, XP प्रणाली आणि चाचणी गुणांसह आधुनिक विद्यार्थी डॅशबोर्ड.' } },
+  { icon: Shield, title: { en: 'Qualified Mentor', mr: 'पात्र मार्गदर्शक' }, desc: { en: 'Expert guidance by a physics and mathematics specialist, ensuring top-tier conceptual clarity.', mr: 'भौतिकशास्त्र आणि गणित तज्ञांचे मार्गदर्शन, संकल्पना स्पष्टतेची खात्री.' } },
+  { icon: Users, title: { en: 'Small Focus Batches', mr: 'लहान बॅच' }, desc: { en: 'Max 15–20 students per batch so every student gets personal attention and is never left behind.', mr: 'प्रत्येक विद्यार्थ्याला वैयक्तिक लक्ष मिळावे म्हणून जास्तीत जास्त १५-२० विद्यार्थी.' } },
+  { icon: Target, title: { en: 'Regular Weekly Tests', mr: 'साप्ताहिक चाचण्या' }, desc: { en: 'Strict schedule of chapter-wise and full-syllabus tests to constantly track and improve performance.', mr: 'कामगिरी सुधारण्यासाठी अध्याय-निहाय आणि संपूर्ण अभ्यासक्रम चाचण्या.' } },
+  { icon: Lightbulb, title: { en: 'Doubt-Solving Sessions', mr: 'शंका-निराकरण' }, desc: { en: 'Dedicated time after every class ensuring no question goes unanswered.', mr: 'प्रत्येक वर्गानंतर समर्पित शंका-निराकरण सत्रे.' } },
+  { icon: Bell, title: { en: 'Parent Updates', mr: 'पालकांना अपडेट' }, desc: { en: 'Transparent communication with parents through monthly reports and direct interactions.', mr: 'मासिक अहवाल आणि थेट संवादातून पालकांशी पारदर्शक संवाद.' } },
+  { icon: BookOpen, title: { en: 'Concept-First Teaching', mr: 'संकल्पना-प्रथम शिक्षण' }, desc: { en: 'We prioritize deep understanding over rote memorization. Concepts first, formulas follow.', mr: 'आम्ही पाठांतरापेक्षा समजण्याला प्राधान्य देतो.' } },
+  { icon: Target, title: { en: 'Board + Competitive', mr: 'बोर्ड आणि स्पर्धा परीक्षा' }, desc: { en: 'Seamlessly balanced approach for both board exams and entrance tests (JEE/NEET/MHT-CET).', mr: 'बोर्ड परीक्षा आणि स्पर्धा परीक्षांसाठी संतुलित दृष्टिकोन.' } },
+  { icon: CalendarCheck, title: { en: 'Structured Syllabus', mr: 'संरचित अभ्यासक्रम' }, desc: { en: 'A clear roadmap ensuring timely completion and ample revision time before final exams.', mr: 'वेळेवर पूर्ण होणारा आणि उजळणीसाठी वेळ देणारा अभ्यासक्रम.' } },
 ];
 
 
@@ -86,6 +86,27 @@ export default async function HomePage({ params }: Props) {
         </svg>
         <span className="text-sm hidden sm:inline">WhatsApp Us</span>
       </a>
+
+      {/* FAQ Schema */}
+      {dbFAQs.length > 0 && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: dbFAQs.map(faq => ({
+                '@type': 'Question',
+                name: faq.question,
+                acceptedAnswer: {
+                  '@type': 'Answer',
+                  text: faq.answer,
+                },
+              })),
+            }),
+          }}
+        />
+      )}
 
       {/* ── 1. HERO ────────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex items-center pt-16 overflow-hidden">
@@ -184,34 +205,66 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ── 3.5. TEACHING METHODOLOGY ──────────────────────────────────── */}
+      {/* ── NEW: FIRST BATCH ADVANTAGE ──────────────────────────────────── */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-brand-green/10 border-y border-brand-green/20">
+        <div className="max-w-4xl mx-auto text-center">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-brand-green/20 border border-brand-green/40 rounded-full text-brand-green text-sm font-bold mb-6">
+            <Star size={16} fill="currentColor" />
+            {lang === 'mr' ? 'नवीन बॅचचे फायदे' : 'The First Batch Advantage'}
+          </div>
+          <h2 className="text-3xl font-bold text-white mb-6">
+            {lang === 'mr' ? 'सुरुवातीपासूनच भक्कम पाया' : 'Turn Our Fresh Start Into Your Strength'}
+          </h2>
+          <p className="text-slate-300 text-lg mb-8 leading-relaxed max-w-2xl mx-auto">
+            {lang === 'mr'
+              ? 'नवीन केंद्र असल्याने, आम्ही प्रत्येक विद्यार्थ्यावर लक्ष केंद्रित करू शकतो. कमी विद्यार्थी, अधिक लक्ष आणि दररोज थेट मार्गदर्शकाचा संवाद.'
+              : 'As a newly opened center, we offer what massive institutes cannot: absolute focus. With limited seats, smaller batches, and direct daily interaction with the founder, your child gets the undivided attention they deserve to build a solid academic foundation.'}
+          </p>
+          <div className="grid sm:grid-cols-3 gap-6 text-left">
+            {[
+              { icon: Users, title: 'Smaller Batches', desc: 'More time per student.' },
+              { icon: Target, title: 'Direct Mentorship', desc: 'Daily interaction with Dr. Dighe.' },
+              { icon: Shield, title: 'No Crowds', desc: 'A focused, distraction-free environment.' }
+            ].map((adv, i) => (
+              <div key={i} className="bg-[#091c38] border border-white/10 rounded-xl p-5 shadow-lg">
+                <adv.icon size={24} className="text-brand-amber mb-3" />
+                <h4 className="text-white font-bold text-base mb-1">{adv.title}</h4>
+                <p className="text-slate-400 text-sm">{adv.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 3.5. OUR STUDY SYSTEM ──────────────────────────────────── */}
       <section className="py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-[#091c38] to-[#0F2E5A]">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-brand-green text-sm font-semibold uppercase tracking-wider mb-2">
-            {lang === 'mr' ? 'आमची शिकवण्याची पद्धत' : 'How We Teach'}
+            {lang === 'mr' ? 'आमची अभ्यास प्रणाली' : 'Our Study System'}
           </p>
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-10">
-            {lang === 'mr' ? 'यशाचा स्पष्ट मार्ग' : 'The Trimitra Academic Roadmap'}
+            {lang === 'mr' ? 'यशाचा स्पष्ट मार्ग' : 'A Process-Based Academic Framework'}
           </h2>
           
-          <div className="grid md:grid-cols-3 gap-8 relative">
+          <div className="grid md:grid-cols-4 gap-8 relative">
             {/* Connecting Line */}
-            <div className="hidden md:block absolute top-12 left-20 right-20 h-0.5 bg-gradient-to-r from-transparent via-brand-green/30 to-transparent"></div>
+            <div className="hidden md:block absolute top-12 left-16 right-16 h-0.5 bg-gradient-to-r from-transparent via-brand-green/30 to-transparent"></div>
             
             {[
-              { step: '01', title: 'Concept Building', desc: 'We start from zero. No rushing, no memorizing without understanding.', icon: Lightbulb },
-              { step: '02', title: 'Rigorous Practice', desc: 'Daily assignments and structured problem-solving sessions.', icon: Target },
-              { step: '03', title: 'Exam Readiness', desc: 'Weekly pattern-based tests and performance analysis.', icon: Trophy }
+              { step: '01', title: 'Chapter-Wise Teaching', desc: 'Structured syllabus coverage with deep concept explanation.', icon: BookOpen },
+              { step: '02', title: 'Rigorous Practice', desc: 'Daily assignments and doubt-solving sessions.', icon: Lightbulb },
+              { step: '03', title: 'Weekly Testing', desc: 'Pattern-based tests to measure understanding accurately.', icon: Target },
+              { step: '04', title: 'Parent Updates', desc: 'Transparent progress tracking and exam-oriented revision.', icon: Trophy }
             ].map((s, i) => {
               const Icon = s.icon;
               return (
                 <div key={i} className="relative z-10 flex flex-col items-center">
-                  <div className="w-24 h-24 bg-[#091c38] border-4 border-[#0F2E5A] rounded-full flex items-center justify-center mb-6 shadow-2xl relative">
+                  <div className="w-20 h-20 bg-[#091c38] border-4 border-[#0F2E5A] rounded-full flex items-center justify-center mb-6 shadow-2xl relative">
                     <div className="absolute -inset-1 bg-gradient-to-br from-brand-green to-brand-amber rounded-full opacity-20 animate-pulse"></div>
-                    <Icon size={32} className="text-white" />
+                    <Icon size={26} className="text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-3"><span className="text-brand-green mr-2">{s.step}.</span>{s.title}</h3>
-                  <p className="text-slate-400 text-sm max-w-xs leading-relaxed">{s.desc}</p>
+                  <h3 className="text-lg font-bold text-white mb-3"><span className="text-brand-green mr-2">{s.step}.</span>{s.title}</h3>
+                  <p className="text-slate-400 text-sm max-w-[200px] leading-relaxed">{s.desc}</p>
                 </div>
               );
             })}
@@ -257,6 +310,14 @@ export default async function HomePage({ params }: Props) {
                   <p className="text-slate-400 text-sm mb-4 leading-relaxed flex-1">{course.description}</p>
 
                   <div className="mb-4">
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      <span className="text-xs text-brand-green bg-brand-green/10 border border-brand-green/20 px-2.5 py-1 rounded-md font-semibold">
+                        <Clock size={10} className="inline mr-1" /> Weekly Tests
+                      </span>
+                      <span className="text-xs text-brand-amber bg-brand-amber/10 border border-brand-amber/20 px-2.5 py-1 rounded-md font-semibold">
+                        <Target size={10} className="inline mr-1" /> Syllabus Focus
+                      </span>
+                    </div>
                     <p className="text-xs text-slate-500 font-semibold uppercase tracking-wider mb-2">
                       {lang === 'mr' ? 'विषय' : 'Subjects'}
                     </p>
@@ -300,7 +361,7 @@ export default async function HomePage({ params }: Props) {
               {lang === 'mr' ? 'आमची ताकद' : 'Our Strength'}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              {lang === 'mr' ? 'त्रिमित्र का निवडायचे?' : 'Why Choose Trimitra?'}
+              {lang === 'mr' ? 'पालक त्रिमित्रवर का विश्वास ठेवू शकतात?' : 'Why Parents Can Trust Trimitra'}
             </h2>
             <p className="text-slate-400 text-lg max-w-2xl mx-auto">
               {lang === 'mr'
@@ -345,7 +406,7 @@ export default async function HomePage({ params }: Props) {
                 <h3 className="text-white font-black text-xl mb-1">Dr. Sarthak Dighe</h3>
                 <p className="text-brand-green font-semibold text-sm mb-3">Founder & Head Mentor</p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  {['BAMS', 'JEE/NEET/NATA Mentor'].map(tag => (
+                  {['BAMS', 'Physics & Mathematics Specialist', 'JEE/NEET/NATA Mentor'].map(tag => (
                     <span key={tag} className="text-xs bg-brand-green/15 border border-brand-green/30 text-brand-green px-2.5 py-1 rounded-full font-medium">{tag}</span>
                   ))}
                 </div>
@@ -364,8 +425,8 @@ export default async function HomePage({ params }: Props) {
 
                 <p className="text-slate-300 text-sm leading-relaxed mb-5">
                   {lang === 'mr'
-                    ? 'डॉ. सार्थक दिघे हे BAMS पदवीधर आणि JEE/NEET/NATA मार्गदर्शक आहेत. ते विज्ञान आणि गणित विषयातील क्लिष्ट संकल्पना सोप्या भाषेत समजावून सांगण्यासाठी समर्पित आहेत. त्यांनी संकल्पना-प्रथम शिकवण्याची पद्धत विकसित केली आहे. प्रत्येक बॅचमध्ये त्यांच्या थेट वैयक्तिक सहभागामुळे प्रत्येक विद्यार्थ्याला योग्य मार्गदर्शन मिळते.'
-                    : 'Dr. Sarthak Dighe is a BAMS graduate and a dedicated JEE/NEET/NATA Mentor who is deeply passionate about simplifying complex concepts in Science and Mathematics. He has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His direct personal involvement in each batch ensures that no student is left behind.'}
+                    ? 'डॉ. सार्थक दिघे हे BAMS पदवीधर आणि भौतिकशास्त्र व गणिताचे विशेषज्ञ आहेत. ते विज्ञान आणि गणित विषयातील क्लिष्ट संकल्पना सोप्या भाषेत समजावून सांगण्यासाठी समर्पित आहेत. विद्यार्थ्यांना थेट मार्गदर्शकाखाली संकल्पना-प्रथम शिक्षण, वैयक्तिक शंका-निराकरण आणि संरचित परीक्षा तयारी मिळते.'
+                    : 'Students receive concept-first teaching, personal doubt-solving, and structured exam preparation under direct mentor guidance. Dr. Sarthak Dighe is a BAMS graduate and a dedicated Physics & Mathematics specialist passionate about simplifying complex concepts for board and competitive exams.'}
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -403,9 +464,9 @@ export default async function HomePage({ params }: Props) {
             </div>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {(dbGallery.length > 0 ? dbGallery.slice(0, 6) : [
-                { id: 'g1', imageUrl: '/hero-classroom.jpg', caption: 'Interactive Classroom Sessions', altText: 'Classroom' },
-                { id: 'g2', imageUrl: '/classroom_glimpse.png', caption: 'Focused Doubt Solving', altText: 'Doubt Solving' },
-                { id: 'g3', imageUrl: '/study_setup.png', caption: 'Modern Infrastructure', altText: 'Infrastructure' }
+                { id: 'g1', imageUrl: '/hero-classroom.jpg', caption: 'Focused Classroom Environment', altText: 'Classroom teaching at Trimitra' },
+                { id: 'g2', imageUrl: '/classroom_glimpse.png', caption: 'Personal Mentor Guidance', altText: 'Doubt Solving and Mentorship' },
+                { id: 'g3', imageUrl: '/study_setup.png', caption: 'Quiet Study & Test Practice', altText: 'Test Practice Setup' }
               ]).map((item: any) => (
                 <div key={item.id} className="relative h-56 rounded-2xl overflow-hidden border border-white/10 group">
                   <Image
