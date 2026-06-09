@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid mobile number. Must be a valid 10-digit Indian number.' }, { status: 400 });
     }
 
-    const validTracks = ['FOUNDATION_6_9', 'BOARD_10', 'SCIENCE_11_12', 'COMPETITIVE'];
+    const validTracks = ['FOUNDATION_6_9', 'BOARD_10', 'SCIENCE_11_12', 'COMPETITIVE', 'COMPETITIVE_MHTCET', 'COMPETITIVE_NATA'];
     if (!validTracks.includes(track)) {
       return NextResponse.json({ error: 'Invalid course track.' }, { status: 400 });
     }

@@ -29,10 +29,12 @@ export function formatRelativeTime(date: Date | string): string {
 }
 
 export const TRACK_LABELS: Record<string, string> = {
-  FOUNDATION_6_9: 'Foundation (6th–9th)',
-  BOARD_10: '10th Board',
+  FOUNDATION_6_9: 'Foundation (Class 6th–8th)',
+  BOARD_10: '9th-10th Board Mastery',
   SCIENCE_11_12: '11th–12th Science',
-  COMPETITIVE: 'Competitive (JEE/NEET/CET/NATA)',
+  COMPETITIVE: 'JEE & NEET',
+  COMPETITIVE_MHTCET: 'MHT-CET (PCMB Group)',
+  COMPETITIVE_NATA: 'NATA',
 };
 
 export const TRACK_COLORS: Record<string, string> = {
@@ -40,6 +42,8 @@ export const TRACK_COLORS: Record<string, string> = {
   BOARD_10: 'bg-blue-500/20 text-blue-300 border-blue-500/30',
   SCIENCE_11_12: 'bg-green-500/20 text-green-300 border-green-500/30',
   COMPETITIVE: 'bg-amber-500/20 text-amber-300 border-amber-500/30',
+  COMPETITIVE_MHTCET: 'bg-teal-500/20 text-teal-300 border-teal-500/30',
+  COMPETITIVE_NATA: 'bg-red-500/20 text-red-300 border-red-500/30',
 };
 
 export const TRACK_BADGE_COLORS: Record<string, string> = {
@@ -47,6 +51,8 @@ export const TRACK_BADGE_COLORS: Record<string, string> = {
   BOARD_10: '#3b82f6',
   SCIENCE_11_12: '#10B981',
   COMPETITIVE: '#F59E0B',
+  COMPETITIVE_MHTCET: '#14b8a6',
+  COMPETITIVE_NATA: '#ef4444',
 };
 
 export const ROLE_LABELS: Record<string, string> = {
@@ -77,6 +83,8 @@ export function generateRollNumber(track: string, year: number, seq: number): st
     BOARD_10: 'BRD',
     SCIENCE_11_12: 'SCI',
     COMPETITIVE: 'CMP',
+    COMPETITIVE_MHTCET: 'CET',
+    COMPETITIVE_NATA: 'NAT',
   };
   const code = trackCode[track] || 'STD';
   return `${code}-${year}-${String(seq).padStart(3, '0')}`;

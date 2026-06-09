@@ -7,7 +7,7 @@ async function main() {
   console.log('🌱 Seeding database...');
 
   // ── 1. Admin account ───────────────────────────────────────────────────────
-  const adminHash = await bcrypt.hash('admin@trimitra2024', 12);
+  const adminHash = await bcrypt.hash('trimitra@2026', 12);
   // Upsert primary admin with real WhatsApp number
   const existingAdmin1 = await prisma.student.findUnique({ where: { mobile: '9665269059' } });
   const existingAdmin2 = await prisma.student.findUnique({ where: { mobile: '9999000000' } });
@@ -92,11 +92,11 @@ async function main() {
     {
       slug: 'foundation-6-to-9',
       title: 'Foundation Program',
-      subtitle: 'Class 6th to 9th',
-      description: 'A strong academic foundation for students from Class 6 to 9. We focus on building conceptual clarity in Mathematics and Science, strengthening English communication, and preparing students for the rigours of 10th Board and beyond.',
-      subjects: 'Mathematics, Science, English, Social Science',
+      subtitle: 'Class 6th to 8th',
+      description: 'A strong academic foundation for students from Class 6 to 8. We focus on building conceptual clarity in Mathematics and Science to prepare students for the rigours of 9th and 10th Board.',
+      subjects: 'Mathematics, Science',
       targetTrack: 'FOUNDATION_6_9',
-      targetClass: '6th to 9th',
+      targetClass: '6th to 8th',
       duration: '1 Academic Year',
       sortOrder: 0,
       whoShouldJoin: 'Students from Class 6th to 9th who want to build a strong conceptual base. Especially recommended for students who feel weak in Maths or Science, want to prepare early for 10th Board, or are aiming for competitive exams in future.',
@@ -112,11 +112,11 @@ async function main() {
     {
       slug: '10th-board',
       title: '10th Board Mastery',
-      subtitle: 'Maharashtra SSC Board',
-      description: 'Targeted preparation for Maharashtra SSC Board (10th standard). Covers all subjects in depth with chapter-wise tests, full-length mock tests, and previous year paper analysis to ensure 90%+ results.',
-      subjects: 'Mathematics, Science I (Physics & Chemistry), Science II (Biology), English, SST',
+      subtitle: '9th & 10th Board Mastery',
+      description: 'Targeted preparation for Maharashtra Board exams. Covers Mathematics and Science in depth with chapter-wise tests and full-length mock tests to ensure top results.',
+      subjects: 'Mathematics, Science',
       targetTrack: 'BOARD_10',
-      targetClass: '10th',
+      targetClass: '9th & 10th',
       duration: '1 Academic Year',
       sortOrder: 1,
       whoShouldJoin: 'Students appearing for the Maharashtra SSC Board 10th exam who want to score 85%+ or 90%+. Also suitable for students who struggled in 9th and want to build strong foundations before the Board year.',
@@ -572,8 +572,8 @@ async function main() {
 
   console.log('\n🎉 Database seeding complete!');
   console.log('─────────────────────────────────────────────────────────────────');
-  console.log('Admin Login → Mobile: 9665269059 | Password: admin@trimitra2024');
-  console.log('Alt Login  → Mobile: 9999000000  | Password: admin@trimitra2024');
+  console.log('Admin Login → Mobile: 9665269059 | Password: trimitra@2026');
+  console.log('Alt Login  → Mobile: 9999000000  | Password: trimitra@2026');
   console.log('─────────────────────────────────────────────────────────────────');
   console.log('Courses seeded: Foundation, 10th Board, 11-12 Science, Competitive');
   console.log('Syllabus seeded: 4 courses × chapters based on official references');

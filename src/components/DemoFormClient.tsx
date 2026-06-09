@@ -5,12 +5,11 @@ import { User, Users, Phone, BookOpen, Clock, MessageSquare, CheckCircle, AlertC
 
 const STANDARDS = ['6th', '7th', '8th', '9th', '10th', '11th', '12th', 'Dropper'];
 const TRACKS = [
-  { value: 'FOUNDATION_6_9', label: 'Foundation (6th–9th)' },
-  { value: 'BOARD_10', label: '10th Board Mastery' },
+  { value: 'FOUNDATION_6_9', label: 'Foundation (6th–8th)' },
+  { value: 'BOARD_10', label: '9th-10th Board Mastery' },
   { value: 'SCIENCE_11_12', label: '11th–12th Science' },
-  { value: 'COMPETITIVE_JEE', label: 'JEE Main & Advanced' },
-  { value: 'COMPETITIVE_NEET', label: 'NEET UG' },
-  { value: 'COMPETITIVE_MHTCET', label: 'MHT-CET' },
+  { value: 'COMPETITIVE', label: 'JEE & NEET' },
+  { value: 'COMPETITIVE_MHTCET', label: 'MHT-CET (PCMB Group)' },
   { value: 'COMPETITIVE_NATA', label: 'NATA' },
 ];
 const TIME_SLOTS = [

@@ -1,13 +1,14 @@
-import { prisma } from '@/lib/prisma';
-import DemoFormClient from '@/components/DemoFormClient';
-import Link from 'next/link';
-import { ArrowLeft, BookOpen, CheckCircle, Clock, Users, ChevronDown, MessageCircle, Star, Target, Calendar, FileText, HelpCircle } from 'lucide-react';
-import type { Metadata } from 'next';
+import re
+import sys
 
-interface Props { params: { lang: string; track: string } }
+filepath = r"d:\project\Trimitra Coaching Center\src\app\[lang]\courses\[track]\page.tsx"
 
-// Normalize track slug to DB targetTrack
-function slugToTrack(slug: string): string {
+with open(filepath, 'r', encoding='utf-8') as f:
+    content = f.read()
+
+# 1. Update slugToTrack
+slug_pattern = re.compile(r'(function slugToTrack.*?\{).*?(\n  \};\n  return map\[slug\])', re.DOTALL)
+new_slug_map = """
   const map: Record<string, string> = {
     'foundation-6-to-9': 'FOUNDATION_6_9',
     'foundation_6_9': 'FOUNDATION_6_9',
@@ -22,27 +23,30 @@ function slugToTrack(slug: string): string {
     'competitive_mhtcet': 'COMPETITIVE_MHTCET',
     'nata': 'COMPETITIVE_NATA',
     'competitive_nata': 'COMPETITIVE_NATA',
+"""
+content = slug_pattern.sub(r'\1' + new_slug_map + r'\2', content)
 
-  };
-  return map[slug] || slug.toUpperCase().replace(/-/g, '_');
-}
-
-const PRIORITY_STYLES: Record<string, string> = {
-  High: 'bg-red-500/15 text-red-400 border-red-500/30',
-  Medium: 'bg-yellow-500/15 text-yellow-400 border-yellow-500/30',
-  Low: 'bg-slate-500/15 text-slate-400 border-slate-500/30',
-};
-
-const TRACK_ACCENT: Record<string, { color: string; border: string; icon: string }> = {
+# 2. Update TRACK_ACCENT
+accent_pattern = re.compile(r'(const TRACK_ACCENT:.*?\{).*?(\n\};)', re.DOTALL)
+new_accent = """
   FOUNDATION_6_9: { color: 'text-purple-400', border: 'border-purple-500/40', icon: '📚' },
   BOARD_10: { color: 'text-blue-400', border: 'border-blue-500/40', icon: '🎯' },
   SCIENCE_11_12: { color: 'text-brand-green', border: 'border-brand-green/40', icon: '🔬' },
   COMPETITIVE: { color: 'text-brand-amber', border: 'border-brand-amber/40', icon: '🏆' },
   COMPETITIVE_MHTCET: { color: 'text-teal-400', border: 'border-teal-500/40', icon: '⚡' },
-  COMPETITIVE_NATA: { color: 'text-red-400', border: 'border-red-500/40', icon: '📐' },
-};
+  COMPETITIVE_NATA: { color: 'text-red-400', border: 'border-red-500/40', icon: '📐' },"""
+content = accent_pattern.sub(r'\1' + new_accent + r'\2', content)
 
-const STATIC_COURSES_FALLBACKS: Record<string, any> = {
+# 3. Update STATIC_COURSES_FALLBACKS
+# Use string replacement based on finding "const STATIC_COURSES_FALLBACKS" to "export async function generateMetadata"
+start_idx = content.find('const STATIC_COURSES_FALLBACKS: Record<string, any> = {')
+end_idx = content.find('export async function generateMetadata', start_idx)
+
+if start_idx == -1 or end_idx == -1:
+    print("Could not find STATIC_COURSES_FALLBACKS block.")
+    sys.exit(1)
+
+new_fallbacks = """const STATIC_COURSES_FALLBACKS: Record<string, any> = {
   FOUNDATION_6_9: {
     title: 'Foundation Program', subtitle: 'Class 6th to 8th',
     description: 'A strong academic foundation for students from Class 6 to 8. We focus on building conceptual clarity in Mathematics and Science to prepare students for the rigours of 9th and 10th Board.',
@@ -89,7 +93,7 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
       id: 'syl-b10', boardExam: 'Maharashtra SSC Board 9th-10th', academicYear: '2024-25', sourceNote: 'Based on MSBSHSE official curriculum for Standards 9 & 10 (SSC).',
       subjects: [
         { id: 'sub-b10-math', name: 'Mathematics', chapters: [
-          { id: 'ch-b10-m1', name: 'Linear Equations in Two Variables', topics: 'Graphical method, Cramer\'s rule, word problems', priority: 'High', examRelevance: 'Board', isImportant: true },
+          { id: 'ch-b10-m1', name: 'Linear Equations in Two Variables', topics: 'Graphical method, Cramer\\'s rule, word problems', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-m2', name: 'Quadratic Equations', topics: 'Factorization, formula method, nature of roots', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-m3', name: 'Arithmetic Progression', topics: 'Common difference, nth term, sum of n terms', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-m4', name: 'Similarity and Pythagoras Theorem', topics: 'BPT, geometric mean, applications', priority: 'High', examRelevance: 'Board', isImportant: true },
@@ -99,11 +103,11 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
           { id: 'ch-b10-m8', name: 'Mensuration', topics: 'Surface area and volume of cylinder, cone, sphere, frustum', priority: 'High', examRelevance: 'Board', isImportant: true }
         ]},
         { id: 'sub-b10-sci', name: 'Science', chapters: [
-          { id: 'ch-b10-s1', name: 'Laws of Motion and Gravitation', topics: 'Velocity, acceleration, Kepler\'s laws', priority: 'High', examRelevance: 'Board', isImportant: true },
+          { id: 'ch-b10-s1', name: 'Laws of Motion and Gravitation', topics: 'Velocity, acceleration, Kepler\\'s laws', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-s2', name: 'Chemical Reactions, Acids and Bases', topics: 'Balancing equations, pH scale, salts', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-s3', name: 'Classification of Elements & Carbon Compounds', topics: 'Periodic table, organic compounds', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-s4', name: 'Refraction and Dispersion of Light', topics: 'Lenses, defects of vision, prism refraction', priority: 'High', examRelevance: 'Board', isImportant: true },
-          { id: 'ch-b10-s5', name: 'Electricity and Electromagnetism', topics: 'Ohm\'s law, heating effects, electromagnetic induction', priority: 'High', examRelevance: 'Board', isImportant: true },
+          { id: 'ch-b10-s5', name: 'Electricity and Electromagnetism', topics: 'Ohm\\'s law, heating effects, electromagnetic induction', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-s6', name: 'Life Processes & Heredity', topics: 'Transcription, translation, Darwin, cell division', priority: 'High', examRelevance: 'Board', isImportant: true },
           { id: 'ch-b10-s7', name: 'Environmental Management', topics: 'Ecosystems, waste management, GMOs', priority: 'Low', examRelevance: 'Board', isImportant: false }
         ]}
@@ -125,16 +129,16 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
       subjects: [
         { id: 'sub-sci-phy', name: 'Physics', chapters: [
           { id: 'ch-sp1', name: 'Rotational Dynamics', topics: 'Moment of inertia, angular momentum, torque', priority: 'High', examRelevance: 'Board,JEE', isImportant: true },
-          { id: 'ch-sp2', name: 'Mechanical Properties of Fluids', topics: 'Surface tension, viscosity, Bernoulli\'s theorem', priority: 'High', examRelevance: 'Board', isImportant: true },
-          { id: 'ch-sp3', name: 'Kinetic Theory of Gases & Radiation', topics: 'Black body, Stefan\'s law, gas laws', priority: 'High', examRelevance: 'Board,JEE', isImportant: true },
+          { id: 'ch-sp2', name: 'Mechanical Properties of Fluids', topics: 'Surface tension, viscosity, Bernoulli\\'s theorem', priority: 'High', examRelevance: 'Board', isImportant: true },
+          { id: 'ch-sp3', name: 'Kinetic Theory of Gases & Radiation', topics: 'Black body, Stefan\\'s law, gas laws', priority: 'High', examRelevance: 'Board,JEE', isImportant: true },
           { id: 'ch-sp4', name: 'Thermodynamics', topics: 'Laws of thermodynamics, Carnot cycle', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
           { id: 'ch-sp5', name: 'Oscillations and Wave Optics', topics: 'SHM, superposition, interference, diffraction', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
-          { id: 'ch-sp6', name: 'Electrostatics & Current Electricity', topics: 'Gauss\'s law, capacitors, Kirchhoff\'s laws', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
-          { id: 'ch-sp7', name: 'Magnetic Fields and Induction', topics: 'Biot-Savart, Ampere\'s law, Faraday\'s law, AC', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
+          { id: 'ch-sp6', name: 'Electrostatics & Current Electricity', topics: 'Gauss\\'s law, capacitors, Kirchhoff\\'s laws', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
+          { id: 'ch-sp7', name: 'Magnetic Fields and Induction', topics: 'Biot-Savart, Ampere\\'s law, Faraday\\'s law, AC', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
           { id: 'ch-sp8', name: 'Modern Physics', topics: 'Dual nature, Bohr model, nuclear decay, semiconductors', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true }
         ]},
         { id: 'sub-sci-chem', name: 'Chemistry', chapters: [
-          { id: 'ch-sc1', name: 'Solid State and Solutions', topics: 'Crystal lattices, colligative properties, Raoult\'s law', priority: 'High', examRelevance: 'Board,JEE', isImportant: true },
+          { id: 'ch-sc1', name: 'Solid State and Solutions', topics: 'Crystal lattices, colligative properties, Raoult\\'s law', priority: 'High', examRelevance: 'Board,JEE', isImportant: true },
           { id: 'ch-sc2', name: 'Ionic Equilibria & Thermodynamics', topics: 'pH, buffer solutions, enthalpy, entropy', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
           { id: 'ch-sc3', name: 'Electrochemistry & Chemical Kinetics', topics: 'Nernst equation, rate laws, Arrhenius equation', priority: 'High', examRelevance: 'Board,JEE,NEET', isImportant: true },
           { id: 'ch-sc4', name: 'Coordination & Transition Elements', topics: 'd and f block, ligands, isomerism', priority: 'High', examRelevance: 'Board,JEE', isImportant: true },
@@ -177,14 +181,14 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
       id: 'syl-jee', boardExam: 'JEE Main & NEET UG', academicYear: '2024-25', sourceNote: 'Based on National Testing Agency (NTA) official syllabus and NCERT textbook guidelines for JEE Main & NEET UG.',
       subjects: [
         { id: 'sub-j-phy', name: 'Physics', chapters: [
-          { id: 'ch-jp1', name: 'Mechanics and Kinematics', topics: 'Newton\'s laws, projectile motion, friction, work-energy-power', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
+          { id: 'ch-jp1', name: 'Mechanics and Kinematics', topics: 'Newton\\'s laws, projectile motion, friction, work-energy-power', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
           { id: 'ch-jp2', name: 'Rotational Dynamics', topics: 'Torque, angular momentum, conservation, rolling', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
-          { id: 'ch-jp3', name: 'Gravitation & Properties of Matter', topics: 'Kepler\'s laws, elasticity, viscosity', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
+          { id: 'ch-jp3', name: 'Gravitation & Properties of Matter', topics: 'Kepler\\'s laws, elasticity, viscosity', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
           { id: 'ch-jp4', name: 'Thermodynamics & Kinetic Theory', topics: 'Ideal gas behavior, Carnot engine', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
-          { id: 'ch-jp5', name: 'Electrostatics & Magnetism', topics: 'Gauss\'s theorem, capacitance, Biot-Savart, Ampere\'s law', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
-          { id: 'ch-jp6', name: 'Electromagnetic Induction & AC', topics: 'Faraday\'s laws, self/mutual induction, LCR circuits', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
+          { id: 'ch-jp5', name: 'Electrostatics & Magnetism', topics: 'Gauss\\'s theorem, capacitance, Biot-Savart, Ampere\\'s law', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
+          { id: 'ch-jp6', name: 'Electromagnetic Induction & AC', topics: 'Faraday\\'s laws, self/mutual induction, LCR circuits', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
           { id: 'ch-jp7', name: 'Optics', topics: 'Lenses, wave optics, interference, diffraction', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
-          { id: 'ch-jp8', name: 'Modern Physics', topics: 'Photoelectric effect, Bohr\'s model, radioactivity, logic gates', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true }
+          { id: 'ch-jp8', name: 'Modern Physics', topics: 'Photoelectric effect, Bohr\\'s model, radioactivity, logic gates', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true }
         ]},
         { id: 'sub-j-chem', name: 'Chemistry', chapters: [
           { id: 'ch-jc1', name: 'Atomic Structure & Bonding', topics: 'Quantum numbers, hybridization, VSEPR', priority: 'High', examRelevance: 'JEE,NEET', isImportant: true },
@@ -200,7 +204,7 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
           { id: 'ch-jm2', name: 'Sequences, Series & Binomial Theorem', topics: 'AP, GP, HP, binomial expansions', priority: 'High', examRelevance: 'JEE', isImportant: true },
           { id: 'ch-jm3', name: 'Matrices and Determinants', topics: 'Adjoint, inverse, properties of determinants', priority: 'High', examRelevance: 'JEE', isImportant: true },
           { id: 'ch-jm4', name: 'Coordinate Geometry (Conics)', topics: 'Parabola, ellipse, hyperbola, tangents', priority: 'High', examRelevance: 'JEE', isImportant: true },
-          { id: 'ch-jm5', name: 'Calculus - Limits & Differentiation', topics: 'L\'Hopital rule, mean value theorems', priority: 'High', examRelevance: 'JEE', isImportant: true },
+          { id: 'ch-jm5', name: 'Calculus - Limits & Differentiation', topics: 'L\\'Hopital rule, mean value theorems', priority: 'High', examRelevance: 'JEE', isImportant: true },
           { id: 'ch-jm6', name: 'Integral Calculus & Area', topics: 'Indefinite/definite integrals, area under curve', priority: 'High', examRelevance: 'JEE', isImportant: true },
           { id: 'ch-jm7', name: 'Vectors and 3D Geometry', topics: 'Dot/cross products, lines and planes', priority: 'High', examRelevance: 'JEE', isImportant: true }
         ]},
@@ -230,16 +234,16 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
       subjects: [
         { id: 'sub-c-phy', name: 'Physics', chapters: [
           { id: 'ch-cp1', name: 'Kinematics and Laws of Motion', topics: 'Projectiles, circular motion, friction', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
-          { id: 'ch-cp2', name: 'Rotational Dynamics and Gravitation', topics: 'Kepler\'s laws, moment of inertia', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
+          { id: 'ch-cp2', name: 'Rotational Dynamics and Gravitation', topics: 'Kepler\\'s laws, moment of inertia', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cp3', name: 'Thermal Properties & Thermodynamics', topics: 'Heat, specific heat, first/second law', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cp4', name: 'Electrostatics & Current Electricity', topics: 'Gauss law, capacitors, Wheatstone bridge', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
-          { id: 'ch-cp5', name: 'Electromagnetic Induction & AC Circuits', topics: 'Faraday\'s law, reactance, impedance', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
-          { id: 'ch-cp6', name: 'Wave Optics & Interference', topics: 'Superposition, Young\'s double slit', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
-          { id: 'ch-cp7', name: 'Atoms, Molecules & Nuclei', topics: 'Bohr\'s model, radioactive decay law', priority: 'Medium', examRelevance: 'MHT-CET', isImportant: false }
+          { id: 'ch-cp5', name: 'Electromagnetic Induction & AC Circuits', topics: 'Faraday\\'s law, reactance, impedance', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
+          { id: 'ch-cp6', name: 'Wave Optics & Interference', topics: 'Superposition, Young\\'s double slit', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
+          { id: 'ch-cp7', name: 'Atoms, Molecules & Nuclei', topics: 'Bohr\\'s model, radioactive decay law', priority: 'Medium', examRelevance: 'MHT-CET', isImportant: false }
         ]},
         { id: 'sub-c-chem', name: 'Chemistry', chapters: [
           { id: 'ch-cc1', name: 'Chemical Thermodynamics', topics: 'State functions, enthalpy, entropy', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
-          { id: 'ch-cc2', name: 'Solutions and Colligative Properties', topics: 'Henry\'s law, vapor pressure lowering', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
+          { id: 'ch-cc2', name: 'Solutions and Colligative Properties', topics: 'Henry\\'s law, vapor pressure lowering', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cc3', name: 'Chemical Kinetics & Electrochemistry', topics: 'Order/molecularity, Nernst equation', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cc4', name: 'Coordination Compounds & Metallurgy', topics: 'Ligands, IUPAC name, extraction', priority: 'Medium', examRelevance: 'MHT-CET', isImportant: false },
           { id: 'ch-cc5', name: 'Halogen Derivatives and Alcohols', topics: 'SN1/SN2, dehydration of alcohols', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
@@ -256,7 +260,7 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
           { id: 'ch-cm7', name: 'Probability Distribution', topics: 'Bernoulli trials, binomial distribution', priority: 'Medium', examRelevance: 'MHT-CET', isImportant: false }
         ]},
         { id: 'sub-c-bio', name: 'Biology', chapters: [
-          { id: 'ch-cb1', name: 'Genetic Basis of Inheritance', topics: 'Mendel\'s laws, monohybrid, dihybrid', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
+          { id: 'ch-cb1', name: 'Genetic Basis of Inheritance', topics: 'Mendel\\'s laws, monohybrid, dihybrid', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cb2', name: 'Gene: Nature, Expression & Regulation', topics: 'DNA packaging, replication', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cb3', name: 'Respiration and Circulation', topics: 'Gaseous exchange, double circulation', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
           { id: 'ch-cb4', name: 'Control and Co-ordination', topics: 'Nervous system, reflex actions', priority: 'High', examRelevance: 'MHT-CET', isImportant: true },
@@ -280,7 +284,7 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
       id: 'syl-nata', boardExam: 'NATA 2024-25', academicYear: '2024-25', sourceNote: 'Based on Council of Architecture (CoA) official NATA guidelines and syllabus.',
       subjects: [
         { id: 'sub-n-phy', name: 'Physics', chapters: [
-          { id: 'ch-np1', name: 'Mechanics and Kinematics', topics: 'Motion in 1D/2D, Newton\'s laws, gravity', priority: 'High', examRelevance: 'NATA', isImportant: true },
+          { id: 'ch-np1', name: 'Mechanics and Kinematics', topics: 'Motion in 1D/2D, Newton\\'s laws, gravity', priority: 'High', examRelevance: 'NATA', isImportant: true },
           { id: 'ch-np2', name: 'Optics and Wave Phenomena', topics: 'Reflection, refraction, lenses', priority: 'High', examRelevance: 'NATA', isImportant: true },
           { id: 'ch-np3', name: 'Electricity and Magnetism', topics: 'Electric current, circuits, magnets', priority: 'High', examRelevance: 'NATA', isImportant: true },
           { id: 'ch-np4', name: 'Heat and Thermodynamics', topics: 'Thermal expansion, heat transfer', priority: 'Medium', examRelevance: 'NATA', isImportant: false }
@@ -305,334 +309,11 @@ const STATIC_COURSES_FALLBACKS: Record<string, any> = {
     faqs: []
   }
 };
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { track } = params;
-  const targetTrack = slugToTrack(track);
-  try {
-    const course = await prisma.course.findFirst({ where: { OR: [{ slug: track }, { targetTrack }] } });
-    if (!course) return { title: 'Course | Trimitra Coaching Centre' };
-    return {
-      title: course.metaTitle || `${course.title} | Trimitra Coaching Centre, Talegaon Dighe Pune`,
-      description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe, Pune. Small batches, personal attention, structured preparation.`,
-      keywords: `${course.title} coaching Pune, ${course.targetClass} tuition Talegaon Dighe, best coaching classes Pune`,
-    };
-  } catch (e) {
-    console.error('Failed to generate metadata from DB:', e);
-    return {
-      title: 'Course | Trimitra Coaching Centre',
-      description: 'Expert coaching for School Board and Competitive Exams in Talegaon Dighe, Pune.',
-    };
-  }
-}
+"""
 
-export default async function CourseDetailPage({ params }: Props) {
-  const { lang, track } = params;
-  const targetTrack = slugToTrack(track);
+content = content[:start_idx] + new_fallbacks + content[end_idx:]
 
-  let course: any = null;
-  let globalFAQs: any[] = [];
-  let settings: any = null;
+with open(filepath, 'w', encoding='utf-8') as f:
+    f.write(content)
 
-  try {
-    course = await prisma.course.findFirst({
-      where: { OR: [{ slug: track }, { targetTrack }] },
-      include: {
-        syllabus: {
-          where: { isActive: true },
-          orderBy: { sortOrder: 'asc' },
-          include: {
-            subjects: {
-              orderBy: { sortOrder: 'asc' },
-              include: { chapters: { where: { isActive: true }, orderBy: { sortOrder: 'asc' } } },
-            },
-          },
-        },
-        faqs: { where: { isActive: true }, orderBy: { sortOrder: 'asc' } },
-      },
-    });
-    globalFAQs = await prisma.fAQ.findMany({
-      where: { isActive: true, courseId: null },
-      orderBy: { sortOrder: 'asc' },
-      take: 4,
-    });
-    settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
-  } catch (e) {
-    console.error('Failed to fetch course details from database, using static fallback:', e);
-  }
-
-  // Fallback to static mock data if course not found in database (e.g. database down/empty)
-  if (!course) {
-    course = STATIC_COURSES_FALLBACKS[targetTrack];
-  }
-
-  if (!course) {
-    return (
-      <div className="py-20 text-center">
-        <p className="text-slate-400">Course not found.</p>
-        <Link href={`/${lang}`} className="text-brand-green hover:underline mt-4 block">← Back to Home</Link>
-      </div>
-    );
-  }
-
-  const whatsapp = settings?.whatsapp || '9665269059';
-  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20for%20${encodeURIComponent(course.title)}%20at%20Trimitra%20Coaching%20Centre.`;
-
-  const accent = TRACK_ACCENT[course.targetTrack] || TRACK_ACCENT.COMPETITIVE;
-  const allFAQs = [...(course.faqs || []), ...globalFAQs].slice(0, 8);
-
-  return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto">
-        <Link href={`/${lang}#courses`} className="inline-flex items-center gap-2 text-slate-400 hover:text-brand-green mb-8 transition-colors text-sm">
-          <ArrowLeft size={16} /> Back to All Courses
-        </Link>
-
-        {/* ── Hero ─────────────────────────────────────────────────────── */}
-        <div className={`glass-card border-2 ${accent.border} p-8 mb-8 relative overflow-hidden`}>
-          <div className="absolute top-0 right-0 w-64 h-64 bg-current opacity-3 rounded-full blur-3xl -translate-y-16 translate-x-16" />
-          <div className="relative">
-            <div className="flex items-start gap-6 mb-6">
-              <div className="text-5xl shrink-0">{accent.icon}</div>
-              <div className="flex-1">
-                <p className={`text-sm font-semibold mb-1 ${accent.color}`}>{course.subtitle || course.targetClass}</p>
-                <h1 className="text-3xl md:text-4xl font-black text-white mb-3">{course.title}</h1>
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {course.subjects.split(',').map((s: string) => (
-                    <span key={s} className="badge bg-white/10 text-slate-300 border-white/20 text-xs">{s.trim()}</span>
-                  ))}
-                </div>
-                {course.duration && (
-                  <div className="flex items-center gap-2 text-slate-400 text-sm">
-                    <Clock size={14} />
-                    <span>{course.duration}</span>
-                    {course.targetClass && <><span className="text-white/20">·</span><Users size={14} /><span>{course.targetClass}</span></>}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* Quick CTAs */}
-            <div className="flex flex-wrap gap-3">
-              <a href="#enroll-form-course" className="flex items-center gap-2 px-6 py-3 bg-brand-amber hover:bg-amber-500 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-amber-500/30 text-sm">
-                <Calendar size={16} />
-                Enroll Now
-              </a>
-              <a href={waLink} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-3 bg-green-600/20 border border-green-500/40 text-green-400 font-semibold rounded-xl hover:bg-green-600/30 transition-all text-sm">
-                <MessageCircle size={16} />
-                WhatsApp Enquiry
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="grid lg:grid-cols-3 gap-6">
-          {/* Main content — 2/3 */}
-          <div className="lg:col-span-2 space-y-6">
-
-            {/* Course Overview */}
-            {course.description && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
-                  <BookOpen size={18} className={accent.color} /> Course Overview
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">{course.description}</p>
-              </div>
-            )}
-
-            {/* Who Should Join */}
-            {course.whoShouldJoin && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
-                  <Users size={18} className={accent.color} /> Who Should Join?
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">{course.whoShouldJoin}</p>
-              </div>
-            )}
-
-            {/* Syllabus */}
-            {course.syllabus && course.syllabus.length > 0 && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-4 flex items-center gap-2">
-                  <FileText size={18} className={accent.color} /> Chapter-wise Syllabus
-                </h2>
-                {course.syllabus.map((syl: any) => (
-                  <div key={syl.id} className="mb-6">
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className={`h-px flex-1 bg-gradient-to-r from-white/20 to-transparent`} />
-                      <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider">{syl.boardExam} · {syl.academicYear}</span>
-                      <div className={`h-px flex-1 bg-gradient-to-l from-white/20 to-transparent`} />
-                    </div>
-                    {syl.sourceNote && (
-                      <p className="text-xs text-slate-500 italic mb-3">Source: {syl.sourceNote}</p>
-                    )}
-                    {syl.subjects.map((sub: any) => (
-                      <details key={sub.id} className="group mb-3">
-                        <summary className="flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer list-none hover:bg-white/8 transition-colors">
-                          <div className="flex items-center gap-3">
-                            <span className="text-white font-semibold text-sm">{sub.name}</span>
-                            <span className="text-slate-500 text-xs">({sub.chapters.length} chapters)</span>
-                          </div>
-                          <ChevronDown size={16} className="text-slate-400 group-open:rotate-180 transition-transform shrink-0" />
-                        </summary>
-                        <div className="divide-y divide-white/5 border border-white/10 border-t-0 rounded-b-xl overflow-hidden">
-                          {sub.chapters.map((ch: any, idx: number) => (
-                            <div key={ch.id} className="flex items-start justify-between px-4 py-3 bg-white/2 hover:bg-white/5 transition-colors">
-                              <div className="flex items-start gap-3 flex-1">
-                                <span className="text-slate-500 text-xs mt-0.5 w-5 shrink-0">{idx + 1}.</span>
-                                <div className="flex-1 min-w-0">
-                                  <div className="flex items-center gap-2 flex-wrap">
-                                    <p className="text-white text-sm font-medium">
-                                      {ch.isImportant && <Star size={11} className="inline text-brand-amber fill-brand-amber mr-1" />}
-                                      {ch.name}
-                                    </p>
-                                    <span className={`text-xs px-1.5 py-0.5 rounded border ${PRIORITY_STYLES[ch.priority] || PRIORITY_STYLES.Medium}`}>{ch.priority}</span>
-                                    {ch.examRelevance && ch.examRelevance.split(',').map((er: string) => er.trim()).filter(Boolean).map((er: string) => (
-                                      <span key={er} className="text-xs px-1.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded">{er}</span>
-                                    ))}
-                                  </div>
-                                  {ch.topics && <p className="text-slate-500 text-xs mt-0.5">{ch.topics}</p>}
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </details>
-                    ))}
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {/* Exam Pattern */}
-            {course.examPattern && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
-                  <Target size={18} className={accent.color} /> Exam Pattern
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line">{course.examPattern}</p>
-              </div>
-            )}
-
-            {/* Teaching Methodology */}
-            {course.teachingMethodology && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
-                  <BookOpen size={18} className={accent.color} /> Teaching Methodology
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">{course.teachingMethodology}</p>
-              </div>
-            )}
-
-            {/* Weekly Test Plan */}
-            {course.weeklyTestPlan && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
-                  <Calendar size={18} className={accent.color} /> Weekly Test Plan
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">{course.weeklyTestPlan}</p>
-              </div>
-            )}
-
-            {/* Doubt Solving */}
-            {course.doubtSolvingSystem && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-3 flex items-center gap-2">
-                  <HelpCircle size={18} className={accent.color} /> Doubt-Solving System
-                </h2>
-                <p className="text-slate-300 text-sm leading-relaxed">{course.doubtSolvingSystem}</p>
-              </div>
-            )}
-
-            {/* FAQs */}
-            {allFAQs.length > 0 && (
-              <div className="glass-card p-6">
-                <h2 className="text-white font-bold text-xl mb-4 flex items-center gap-2">
-                  <HelpCircle size={18} className={accent.color} /> Frequently Asked Questions
-                </h2>
-                <div className="space-y-3">
-                  {allFAQs.map((faq: any) => (
-                    <details key={faq.id} className="group border border-white/10 rounded-xl overflow-hidden">
-                      <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none hover:bg-white/5 transition-colors">
-                        <span className="text-white text-sm font-semibold pr-4">{faq.question}</span>
-                        <ChevronDown size={16} className="text-slate-400 shrink-0 group-open:rotate-180 transition-transform" />
-                      </summary>
-                      <div className="px-4 pb-4 pt-1">
-                        <p className="text-slate-300 text-sm leading-relaxed">{faq.answer}</p>
-                      </div>
-                    </details>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
-
-          {/* Sidebar — 1/3 */}
-          <div className="space-y-5">
-
-            {/* Study Material */}
-            {course.studyMaterial && (
-              <div className="glass-card p-5">
-                <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                  <FileText size={16} className={accent.color} /> Study Material
-                </h3>
-                <p className="text-slate-300 text-sm leading-relaxed">{course.studyMaterial}</p>
-              </div>
-            )}
-
-            {/* Batch Timing */}
-            {course.batchTiming && (
-              <div className="glass-card p-5">
-                <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                  <Clock size={16} className={accent.color} /> Batch Timings
-                </h3>
-                <p className="text-slate-300 text-sm leading-relaxed whitespace-pre-line">{course.batchTiming}</p>
-              </div>
-            )}
-
-            {/* Key Subjects */}
-            <div className="glass-card p-5">
-              <h3 className="text-white font-bold mb-3 flex items-center gap-2">
-                <BookOpen size={16} className={accent.color} /> Subjects Covered
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {course.subjects.split(',').map((s: string) => (
-                  <span key={s} className="text-xs text-slate-300 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg font-medium">{s.trim()}</span>
-                ))}
-              </div>
-            </div>
-
-            {/* CTA Card */}
-            <div className={`glass-card border-2 ${accent.border} p-5 text-center sticky top-6`}>
-              <div className="text-3xl mb-3">{accent.icon}</div>
-              <h3 className="text-white font-black text-lg mb-1">{course.title}</h3>
-              <p className="text-slate-400 text-xs mb-5">{course.targetClass} · {course.duration || 'Flexible duration'}</p>
-
-              <div className="flex items-center justify-center gap-1 mb-5">
-                {[1,2,3,4,5].map(n => <Star key={n} size={14} className="text-brand-amber fill-brand-amber" />)}
-                <span className="text-slate-400 text-xs ml-1">Excellent</span>
-              </div>
-
-              <a href="#enroll-form-course" className={`flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold w-full mb-3 transition-all ${accent.color === 'text-brand-amber' ? 'bg-brand-amber text-white hover:bg-amber-500' : 'bg-brand-green text-white hover:bg-green-500'}`}>
-                <Calendar size={16} />
-                Enroll Now
-              </a>
-              <a href={waLink} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-2.5 px-4 border border-green-500/40 text-green-400 font-semibold rounded-xl hover:bg-green-600/10 transition-all text-sm w-full">
-                <MessageCircle size={15} />
-                WhatsApp Enquiry
-              </a>
-            </div>
-          </div>
-        </div>
-
-        {/* Enroll Form */}
-        <div id="enroll-form-course" className="mt-12 pt-8 border-t border-white/10">
-          <h2 className="text-2xl font-bold text-white mb-6 text-center">
-            Interested in {course.title}? Enroll Now
-          </h2>
-          <DemoFormClient lang={lang} />
-        </div>
-      </div>
-    </div>
-  );
-}
+print("Updated page.tsx successfully.")

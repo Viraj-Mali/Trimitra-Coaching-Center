@@ -39,7 +39,7 @@ export default async function AboutPage({ params }: Props) {
               <h2 className="text-white font-bold text-2xl">Dr. Sarthak Dighe</h2>
               <p className="text-brand-green font-medium">Founder & Head Mentor</p>
               <div className="flex flex-wrap justify-center gap-2 mt-3">
-                {['M.Sc.', 'Ph.D.', 'IIT-JEE Expert'].map(tag => (
+                {['BAMS', 'JEE/NEET/NATA Mentor'].map(tag => (
                   <span key={tag} className="badge bg-brand-green/10 text-brand-green border-brand-green/20 text-xs">{tag}</span>
                 ))}
               </div>
@@ -81,10 +81,12 @@ export default async function AboutPage({ params }: Props) {
           <h2 className="text-2xl font-bold text-white mb-6 flex items-center gap-3"><BookOpen size={24} className="text-brand-green" /> Our Academic Programs</h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { track: 'Foundation (6th–9th)', subjects: ['Mathematics', 'Science', 'English'], icon: '📚', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
-              { track: '10th Board (SSC)', subjects: ['Mathematics', 'Science', 'English', 'SST'], icon: '🎯', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
+              { track: 'Foundation (6th–8th)', subjects: ['Mathematics', 'Science'], icon: '📚', color: 'text-purple-400', bg: 'bg-purple-500/10 border-purple-500/20' },
+              { track: '9th-10th Board Mastery', subjects: ['Mathematics', 'Science'], icon: '🎯', color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
               { track: '11th–12th Science', subjects: ['Physics', 'Chemistry', 'Mathematics', 'Biology'], icon: '🔬', color: 'text-brand-green', bg: 'bg-brand-green/10 border-brand-green/20' },
-              { track: 'Competitive', subjects: ['IIT-JEE', 'NEET', 'MHT-CET', 'NATA'], icon: '🏆', color: 'text-brand-amber', bg: 'bg-brand-amber/10 border-brand-amber/20' },
+              { track: 'JEE & NEET', subjects: ['Physics', 'Chemistry', 'Mathematics', 'Biology'], icon: '🏆', color: 'text-brand-amber', bg: 'bg-brand-amber/10 border-brand-amber/20' },
+              { track: 'MHT-CET (PCMB)', subjects: ['Physics', 'Chemistry', 'Mathematics', 'Biology'], icon: '⚡', color: 'text-teal-400', bg: 'bg-teal-500/10 border-teal-500/20' },
+              { track: 'NATA', subjects: ['Physics', 'Chemistry', 'Mathematics', 'Biology'], icon: '📐', color: 'text-red-400', bg: 'bg-red-500/10 border-red-500/20' },
             ].map((prog, i) => (
               <div key={i} className={`rounded-xl border p-4 ${prog.bg}`}>
                 <div className="text-3xl mb-2">{prog.icon}</div>

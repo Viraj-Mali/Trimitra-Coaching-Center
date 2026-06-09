@@ -17,6 +17,8 @@ const COURSE_STYLES = [
   { icon: '🎯', colorClass: 'border-blue-500/40 hover:border-blue-500/80', badgeClass: 'bg-blue-500/15 text-blue-300 border-blue-500/30', btnClass: 'bg-blue-500/20 border-blue-500/40 text-blue-300 hover:bg-blue-500/30' },
   { icon: '🔬', colorClass: 'border-brand-green/40 hover:border-brand-green/80', badgeClass: 'bg-brand-green/15 text-brand-green border-brand-green/30', btnClass: 'bg-brand-green/20 border-brand-green/40 text-brand-green hover:bg-brand-green/30' },
   { icon: '🏆', colorClass: 'border-brand-amber/40 hover:border-brand-amber/80', badgeClass: 'bg-brand-amber/15 text-brand-amber border-brand-amber/30', btnClass: 'bg-brand-amber/20 border-brand-amber/40 text-brand-amber hover:bg-brand-amber/30' },
+  { icon: '⚡', colorClass: 'border-teal-500/40 hover:border-teal-500/80', badgeClass: 'bg-teal-500/15 text-teal-300 border-teal-500/30', btnClass: 'bg-teal-500/20 border-teal-500/40 text-teal-300 hover:bg-teal-500/30' },
+  { icon: '📐', colorClass: 'border-red-500/40 hover:border-red-500/80', badgeClass: 'bg-red-500/15 text-red-300 border-red-500/30', btnClass: 'bg-red-500/20 border-red-500/40 text-red-300 hover:bg-red-500/30' },
 ];
 
 const WHY_FEATURES = [
@@ -236,10 +238,12 @@ export default async function HomePage({ params }: Props) {
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {(dbCourses.length > 0 ? dbCourses : [
-              { id: 'f1', title: 'Foundation (6th-8th)', subtitle: 'Build Strong Basics', description: 'Perfect starting point for academic excellence and conceptual clarity.', subjects: 'Maths,Science,English', targetTrack: 'FOUNDATION_6_9' },
-              { id: 'f2', title: '9th-10th Board Mastery', subtitle: 'Target 95%+', description: 'Comprehensive preparation for SSC & CBSE board exams.', subjects: 'Maths,Science,Social,English', targetTrack: 'BOARD_10' },
+              { id: 'f1', title: 'Foundation (6th-8th)', subtitle: 'Build Strong Basics', description: 'Perfect starting point for academic excellence and conceptual clarity.', subjects: 'Maths,Science', targetTrack: 'FOUNDATION_6_9' },
+              { id: 'f2', title: '9th-10th Board Mastery', subtitle: 'Target 95%+', description: 'Comprehensive preparation for SSC & CBSE board exams.', subjects: 'Maths,Science', targetTrack: 'BOARD_10' },
               { id: 'f3', title: '11th-12th Science', subtitle: 'HSC / CBSE', description: 'Expert coaching for Board exams with practical insights.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'SCIENCE_11_12' },
               { id: 'f4', title: 'JEE & NEET', subtitle: 'Competitive Focus', description: 'Rigorous preparation for top-tier engineering and medical colleges.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE' },
+              { id: 'f5', title: 'MHT-CET (PCMB)', subtitle: 'State Engineering', description: 'Focused training for Maharashtra state level engineering and pharmacy entrance.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE_MHTCET' },
+              { id: 'f6', title: 'NATA', subtitle: 'Architecture Entrance', description: 'Dedicated coaching for National Aptitude Test in Architecture.', subjects: 'Physics,Chemistry,Maths,Biology', targetTrack: 'COMPETITIVE_NATA' },
             ]).map((course: any, idx) => {
               const style = COURSE_STYLES[idx % COURSE_STYLES.length];
               const courseSlug = course.slug || course.targetTrack.toLowerCase();
@@ -341,7 +345,7 @@ export default async function HomePage({ params }: Props) {
                 <h3 className="text-white font-black text-xl mb-1">Dr. Sarthak Dighe</h3>
                 <p className="text-brand-green font-semibold text-sm mb-3">Founder & Head Mentor</p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  {['M.Sc.', 'Ph.D.', 'JEE/NEET Mentor'].map(tag => (
+                  {['BAMS', 'JEE/NEET/NATA Mentor'].map(tag => (
                     <span key={tag} className="text-xs bg-brand-green/15 border border-brand-green/30 text-brand-green px-2.5 py-1 rounded-full font-medium">{tag}</span>
                   ))}
                 </div>
@@ -360,8 +364,8 @@ export default async function HomePage({ params }: Props) {
 
                 <p className="text-slate-300 text-sm leading-relaxed mb-5">
                   {lang === 'mr'
-                    ? 'डॉ. सार्थक दिघे यांच्याकडे पीएच.डी. पदवी असून ते विज्ञान आणि गणित विषयातील क्लिष्ट संकल्पना सोप्या भाषेत समजावून सांगण्यासाठी समर्पित आहेत. त्यांनी संकल्पना-प्रथम शिकवण्याची पद्धत विकसित केली आहे. प्रत्येक बॅचमध्ये त्यांच्या थेट वैयक्तिक सहभागामुळे प्रत्येक विद्यार्थ्याला योग्य मार्गदर्शन मिळते.'
-                    : 'Dr. Sarthak Dighe holds a Ph.D. and is deeply passionate about simplifying complex concepts in Science and Mathematics. He has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His direct personal involvement in each batch ensures that no student is left behind.'}
+                    ? 'डॉ. सार्थक दिघे हे BAMS पदवीधर आणि JEE/NEET/NATA मार्गदर्शक आहेत. ते विज्ञान आणि गणित विषयातील क्लिष्ट संकल्पना सोप्या भाषेत समजावून सांगण्यासाठी समर्पित आहेत. त्यांनी संकल्पना-प्रथम शिकवण्याची पद्धत विकसित केली आहे. प्रत्येक बॅचमध्ये त्यांच्या थेट वैयक्तिक सहभागामुळे प्रत्येक विद्यार्थ्याला योग्य मार्गदर्शन मिळते.'
+                    : 'Dr. Sarthak Dighe is a BAMS graduate and a dedicated JEE/NEET/NATA Mentor who is deeply passionate about simplifying complex concepts in Science and Mathematics. He has developed a teaching approach that combines rigorous conceptual clarity with exam-specific strategy. His direct personal involvement in each batch ensures that no student is left behind.'}
                 </p>
 
                 <div className="grid sm:grid-cols-2 gap-4">
@@ -400,8 +404,8 @@ export default async function HomePage({ params }: Props) {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {(dbGallery.length > 0 ? dbGallery.slice(0, 6) : [
                 { id: 'g1', imageUrl: '/hero-classroom.jpg', caption: 'Interactive Classroom Sessions', altText: 'Classroom' },
-                { id: 'g2', imageUrl: '/hero-classroom.jpg', caption: 'Focused Doubt Solving', altText: 'Doubt Solving' },
-                { id: 'g3', imageUrl: '/hero-classroom.jpg', caption: 'Modern Infrastructure', altText: 'Infrastructure' }
+                { id: 'g2', imageUrl: '/classroom_glimpse.png', caption: 'Focused Doubt Solving', altText: 'Doubt Solving' },
+                { id: 'g3', imageUrl: '/study_setup.png', caption: 'Modern Infrastructure', altText: 'Infrastructure' }
               ]).map((item: any) => (
                 <div key={item.id} className="relative h-56 rounded-2xl overflow-hidden border border-white/10 group">
                   <Image

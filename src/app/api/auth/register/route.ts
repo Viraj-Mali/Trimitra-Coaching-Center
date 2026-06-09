@@ -36,6 +36,7 @@ export async function POST(request: NextRequest) {
     const year = new Date().getFullYear();
     const trackCode: Record<string, string> = {
       FOUNDATION_6_9: 'FND', BOARD_10: 'BRD', SCIENCE_11_12: 'SCI', COMPETITIVE: 'CMP',
+      COMPETITIVE_MHTCET: 'CET', COMPETITIVE_NATA: 'NAT',
     };
     const rollNumber = `${trackCode[track] || 'STD'}-${year}-${String(count + 1).padStart(3, '0')}`;
 
