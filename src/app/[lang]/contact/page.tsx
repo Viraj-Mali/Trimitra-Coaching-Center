@@ -9,7 +9,12 @@ export default async function ContactPage({ params }: Props) {
   const { lang } = params;
   const dict = await getDictionary(lang);
 
-  const settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
+  let settings: any = null;
+  try {
+    settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
+  } catch (e) {
+    console.error("Failed to fetch settings from database for Contact page:", e);
+  }
   const address = settings?.address || dict.footer.address;
   const phone = settings?.phone || dict.footer.phone;
   const email = settings?.email || dict.footer.email;

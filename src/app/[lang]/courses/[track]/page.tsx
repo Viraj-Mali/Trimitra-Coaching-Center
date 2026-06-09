@@ -34,41 +34,133 @@ const TRACK_ACCENT: Record<string, { color: string; border: string; icon: string
   COMPETITIVE: { color: 'text-brand-amber', border: 'border-brand-amber/40', icon: '🏆' },
 };
 
+const STATIC_COURSES_FALLBACKS: Record<string, any> = {
+  FOUNDATION_6_9: {
+    title: 'Foundation Program',
+    subtitle: 'Class 6th to 9th',
+    description: 'A strong academic foundation for students from Class 6 to 9. We focus on building conceptual clarity in Mathematics and Science, strengthening English communication, and preparing students for the rigours of 10th Board and beyond.',
+    subjects: 'Mathematics, Science, English, Social Science',
+    targetTrack: 'FOUNDATION_6_9',
+    targetClass: '6th to 9th',
+    duration: '1 Academic Year',
+    whoShouldJoin: 'Students from Class 6th to 9th who want to build a strong conceptual base. Especially recommended for students who feel weak in Maths or Science, want to prepare early for 10th Board, or are aiming for competitive exams in future.',
+    teachingMethodology: 'Concept-first teaching with real-world examples. Each topic is introduced visually, explained conceptually, and then practised through worksheets.',
+    weeklyTestPlan: 'Every Saturday: Chapter-wise objective test (20 MCQs, 30 minutes). Monthly: Full-syllabus test in Board-exam format.',
+    doubtSolvingSystem: 'Dedicated doubt-solving session after every class (15–20 minutes). Students can also WhatsApp doubts to Dr. Sarthak.',
+    examPattern: 'Aligned with Maharashtra SSC & CBSE Board patterns. Tests include MCQs, short answers, and diagram-based questions.',
+    syllabus: [],
+    faqs: [],
+  },
+  BOARD_10: {
+    title: '10th Board Mastery',
+    subtitle: 'SSC & CBSE Boards',
+    description: 'Targeted preparation for Board exams. Covers all major subjects in depth with chapter-wise tests, full-length mock tests, and previous year paper analysis to ensure top results.',
+    subjects: 'Mathematics, Science, Social Science, English',
+    targetTrack: 'BOARD_10',
+    targetClass: '10th Standard',
+    duration: '1 Academic Year',
+    whoShouldJoin: 'Students appearing for their 10th standard board exams who want to score top marks and build strong foundations before moving to 11th and 12th.',
+    teachingMethodology: 'Board-exam-oriented teaching. Every concept is explained with exam-style presentation. Special focus on diagram drawing, proof writing, and answer presentation.',
+    weeklyTestPlan: 'Weekly chapter-wise tests. Monthly full-syllabus prelim in exact Board format. Full-length mock exam series.',
+    doubtSolvingSystem: 'Doubt-solving after every class. Dedicated WhatsApp doubt support. Pre-exam revision sessions.',
+    examPattern: 'Board exam patterns: Theory + Internal Assessments. MCQs, short answers, long answers, and diagram-based questions.',
+    syllabus: [],
+    faqs: [],
+  },
+  SCIENCE_11_12: {
+    title: '11th–12th Science',
+    subtitle: 'HSC Board + Entrance Ready',
+    description: 'Comprehensive coaching for 11th and 12th Science. Dual-track preparation — Board exams and competitive entrance exams (JEE/NEET/MHT-CET).',
+    subjects: 'Physics, Chemistry, Mathematics, Biology',
+    targetTrack: 'SCIENCE_11_12',
+    targetClass: '11th & 12th Standard',
+    duration: '2 Academic Years',
+    whoShouldJoin: 'Students who are joining 11th Science and want to prepare for HSC Board exams along with competitive entrance exams.',
+    teachingMethodology: 'Parallel Board + entrance preparation. HSC concepts taught first to build foundation, then extended to JEE/NEET/MHT-CET application level.',
+    weeklyTestPlan: 'Weekly chapter-wise objective tests. Bi-weekly Board-format long-answer tests. Monthly combined mock tests.',
+    doubtSolvingSystem: 'Subject-wise doubt sessions. WhatsApp support. Peer study groups.',
+    examPattern: 'Dual pattern: MSBSHSE HSC Board theory/practicals, plus NTA JEE/NEET and State CET patterns.',
+    syllabus: [],
+    faqs: [],
+  },
+  COMPETITIVE: {
+    title: 'Competitive Exam Excellence',
+    subtitle: 'JEE Main | NEET UG | MHT-CET | NATA',
+    description: 'Focused preparation for JEE Main, NEET UG, MHT-CET, and NATA. Covers complete syllabus as per official NTA, State CET Cell, and CoA guidelines.',
+    subjects: 'Physics, Chemistry, Mathematics, Biology, Aptitude & Drawing',
+    targetTrack: 'COMPETITIVE',
+    targetClass: '12th & Droppers',
+    duration: '1 Academic Year',
+    whoShouldJoin: 'Students preparing for engineering (JEE/MHT-CET), medical (NEET), or architecture (NATA) entrance exams.',
+    teachingMethodology: 'Exam-strategy-first approach. Topics covered in priority order. Special sessions on time management and elimination techniques.',
+    weeklyTestPlan: 'Daily practice sets. Weekly chapter-wise mocks. Bi-weekly full-length 3-hour mock exams.',
+    doubtSolvingSystem: 'Daily doubt-solving at the end of each session. Dedicated WhatsApp group support.',
+    examPattern: 'Official exam patterns: JEE Main CBT format, NEET UG 180 MCQs, MHT-CET 150 MCQs, NATA drawing/aptitude.',
+    syllabus: [],
+    faqs: [],
+  }
+};
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { track } = params;
   const targetTrack = slugToTrack(track);
-  const course = await prisma.course.findFirst({ where: { OR: [{ slug: track }, { targetTrack }] } });
-  if (!course) return { title: 'Course | Trimitra Coaching Centre' };
-  return {
-    title: course.metaTitle || `${course.title} | Trimitra Coaching Centre, Talegaon Dighe Pune`,
-    description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe, Pune. Small batches, personal attention, structured preparation.`,
-    keywords: `${course.title} coaching Pune, ${course.targetClass} tuition Talegaon Dighe, best coaching classes Pune`,
-  };
+  try {
+    const course = await prisma.course.findFirst({ where: { OR: [{ slug: track }, { targetTrack }] } });
+    if (!course) return { title: 'Course | Trimitra Coaching Centre' };
+    return {
+      title: course.metaTitle || `${course.title} | Trimitra Coaching Centre, Talegaon Dighe Pune`,
+      description: course.metaDescription || course.description || `Expert coaching for ${course.title} in Talegaon Dighe, Pune. Small batches, personal attention, structured preparation.`,
+      keywords: `${course.title} coaching Pune, ${course.targetClass} tuition Talegaon Dighe, best coaching classes Pune`,
+    };
+  } catch (e) {
+    console.error('Failed to generate metadata from DB:', e);
+    return {
+      title: 'Course | Trimitra Coaching Centre',
+      description: 'Expert coaching for School Board and Competitive Exams in Talegaon Dighe, Pune.',
+    };
+  }
 }
 
 export default async function CourseDetailPage({ params }: Props) {
   const { lang, track } = params;
   const targetTrack = slugToTrack(track);
 
-  // Fetch course by slug OR targetTrack
-  const course = await prisma.course.findFirst({
-    where: { OR: [{ slug: track }, { targetTrack }] },
-    include: {
-      syllabus: {
-        where: { isActive: true },
-        orderBy: { sortOrder: 'asc' },
-        include: {
-          subjects: {
-            orderBy: { sortOrder: 'asc' },
-            include: { chapters: { where: { isActive: true }, orderBy: { sortOrder: 'asc' } } },
+  let course: any = null;
+  let globalFAQs: any[] = [];
+  let settings: any = null;
+
+  try {
+    course = await prisma.course.findFirst({
+      where: { OR: [{ slug: track }, { targetTrack }] },
+      include: {
+        syllabus: {
+          where: { isActive: true },
+          orderBy: { sortOrder: 'asc' },
+          include: {
+            subjects: {
+              orderBy: { sortOrder: 'asc' },
+              include: { chapters: { where: { isActive: true }, orderBy: { sortOrder: 'asc' } } },
+            },
           },
         },
+        faqs: { where: { isActive: true }, orderBy: { sortOrder: 'asc' } },
       },
-      faqs: { where: { isActive: true }, orderBy: { sortOrder: 'asc' } },
-    },
-  });
+    });
+    globalFAQs = await prisma.fAQ.findMany({
+      where: { isActive: true, courseId: null },
+      orderBy: { sortOrder: 'asc' },
+      take: 4,
+    });
+    settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
+  } catch (e) {
+    console.error('Failed to fetch course details from database, using static fallback:', e);
+  }
 
-  // Fallback for old track keys
+  // Fallback to static mock data if course not found in database (e.g. database down/empty)
+  if (!course) {
+    course = STATIC_COURSES_FALLBACKS[targetTrack];
+  }
+
   if (!course) {
     return (
       <div className="py-20 text-center">
@@ -78,16 +170,8 @@ export default async function CourseDetailPage({ params }: Props) {
     );
   }
 
-  // Also fetch global FAQs
-  const globalFAQs = await prisma.fAQ.findMany({
-    where: { isActive: true, courseId: null },
-    orderBy: { sortOrder: 'asc' },
-    take: 4,
-  });
-
-  const settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
   const whatsapp = settings?.whatsapp || '9665269059';
-  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20the%20${encodeURIComponent(course.title)}%20at%20Trimitra%20Coaching%20Centre.`;
+  const waLink = `https://wa.me/91${whatsapp}?text=Hello%2C%20I%20am%20interested%20in%20enrolling%20for%20${encodeURIComponent(course.title)}%20at%20Trimitra%20Coaching%20Centre.`;
 
   const accent = TRACK_ACCENT[course.targetTrack] || TRACK_ACCENT.COMPETITIVE;
   const allFAQs = [...(course.faqs || []), ...globalFAQs].slice(0, 8);
@@ -109,7 +193,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 <p className={`text-sm font-semibold mb-1 ${accent.color}`}>{course.subtitle || course.targetClass}</p>
                 <h1 className="text-3xl md:text-4xl font-black text-white mb-3">{course.title}</h1>
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {course.subjects.split(',').map(s => (
+                  {course.subjects.split(',').map((s: string) => (
                     <span key={s} className="badge bg-white/10 text-slate-300 border-white/20 text-xs">{s.trim()}</span>
                   ))}
                 </div>
@@ -167,7 +251,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 <h2 className="text-white font-bold text-xl mb-4 flex items-center gap-2">
                   <FileText size={18} className={accent.color} /> Chapter-wise Syllabus
                 </h2>
-                {course.syllabus.map((syl) => (
+                {course.syllabus.map((syl: any) => (
                   <div key={syl.id} className="mb-6">
                     <div className="flex items-center gap-3 mb-3">
                       <div className={`h-px flex-1 bg-gradient-to-r from-white/20 to-transparent`} />
@@ -177,7 +261,7 @@ export default async function CourseDetailPage({ params }: Props) {
                     {syl.sourceNote && (
                       <p className="text-xs text-slate-500 italic mb-3">Source: {syl.sourceNote}</p>
                     )}
-                    {syl.subjects.map((sub) => (
+                    {syl.subjects.map((sub: any) => (
                       <details key={sub.id} className="group mb-3">
                         <summary className="flex items-center justify-between px-4 py-3 bg-white/5 border border-white/10 rounded-xl cursor-pointer list-none hover:bg-white/8 transition-colors">
                           <div className="flex items-center gap-3">
@@ -187,7 +271,7 @@ export default async function CourseDetailPage({ params }: Props) {
                           <ChevronDown size={16} className="text-slate-400 group-open:rotate-180 transition-transform shrink-0" />
                         </summary>
                         <div className="divide-y divide-white/5 border border-white/10 border-t-0 rounded-b-xl overflow-hidden">
-                          {sub.chapters.map((ch, idx) => (
+                          {sub.chapters.map((ch: any, idx: number) => (
                             <div key={ch.id} className="flex items-start justify-between px-4 py-3 bg-white/2 hover:bg-white/5 transition-colors">
                               <div className="flex items-start gap-3 flex-1">
                                 <span className="text-slate-500 text-xs mt-0.5 w-5 shrink-0">{idx + 1}.</span>
@@ -198,7 +282,7 @@ export default async function CourseDetailPage({ params }: Props) {
                                       {ch.name}
                                     </p>
                                     <span className={`text-xs px-1.5 py-0.5 rounded border ${PRIORITY_STYLES[ch.priority] || PRIORITY_STYLES.Medium}`}>{ch.priority}</span>
-                                    {ch.examRelevance && ch.examRelevance.split(',').map(er => er.trim()).filter(Boolean).map(er => (
+                                    {ch.examRelevance && ch.examRelevance.split(',').map((er: string) => er.trim()).filter(Boolean).map((er: string) => (
                                       <span key={er} className="text-xs px-1.5 py-0.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 rounded">{er}</span>
                                     ))}
                                   </div>
@@ -262,7 +346,7 @@ export default async function CourseDetailPage({ params }: Props) {
                   <HelpCircle size={18} className={accent.color} /> Frequently Asked Questions
                 </h2>
                 <div className="space-y-3">
-                  {allFAQs.map((faq) => (
+                  {allFAQs.map((faq: any) => (
                     <details key={faq.id} className="group border border-white/10 rounded-xl overflow-hidden">
                       <summary className="flex items-center justify-between px-4 py-3 cursor-pointer list-none hover:bg-white/5 transition-colors">
                         <span className="text-white text-sm font-semibold pr-4">{faq.question}</span>
@@ -307,7 +391,7 @@ export default async function CourseDetailPage({ params }: Props) {
                 <BookOpen size={16} className={accent.color} /> Subjects Covered
               </h3>
               <div className="flex flex-wrap gap-2">
-                {course.subjects.split(',').map(s => (
+                {course.subjects.split(',').map((s: string) => (
                   <span key={s} className="text-xs text-slate-300 bg-white/5 border border-white/10 px-3 py-1.5 rounded-lg font-medium">{s.trim()}</span>
                 ))}
               </div>

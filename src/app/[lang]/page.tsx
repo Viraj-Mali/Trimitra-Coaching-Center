@@ -37,12 +37,25 @@ export default async function HomePage({ params }: Props) {
   const student = await getCurrentStudent();
 
   // Load everything from database
-  const [dbCourses, settings, dbFAQs, dbGallery] = await Promise.all([
-    prisma.course.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' } }),
-    prisma.siteSettings.findUnique({ where: { id: 'singleton' } }),
-    prisma.fAQ.findMany({ where: { isActive: true, courseId: null }, orderBy: { sortOrder: 'asc' }, take: 6 }),
-    prisma.gallery.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' }, take: 6 }),
-  ]);
+  let dbCourses: any[] = [];
+  let settings: any = null;
+  let dbFAQs: any[] = [];
+  let dbGallery: any[] = [];
+
+  try {
+    const [fetchedCourses, fetchedSettings, fetchedFAQs, fetchedGallery] = await Promise.all([
+      prisma.course.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' } }),
+      prisma.siteSettings.findUnique({ where: { id: 'singleton' } }),
+      prisma.fAQ.findMany({ where: { isActive: true, courseId: null }, orderBy: { sortOrder: 'asc' }, take: 6 }),
+      prisma.gallery.findMany({ where: { isActive: true }, orderBy: { sortOrder: 'asc' }, take: 6 }),
+    ]);
+    dbCourses = fetchedCourses;
+    settings = fetchedSettings;
+    dbFAQs = fetchedFAQs;
+    dbGallery = fetchedGallery;
+  } catch (e) {
+    console.error('Failed to fetch data from database, using fallback content:', e);
+  }
 
   const whatsapp = settings?.whatsapp || '9665269059';
   const phone = settings?.phone || '9665269059';

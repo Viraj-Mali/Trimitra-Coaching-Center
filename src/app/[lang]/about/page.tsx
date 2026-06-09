@@ -7,10 +7,13 @@ interface Props { params: { lang: string } }
 
 export default async function AboutPage({ params }: Props) {
   const { lang } = params;
-  const [dict, settings] = await Promise.all([
-    getDictionary(lang),
-    prisma.siteSettings.findUnique({ where: { id: 'singleton' } }),
-  ]);
+  const dict = await getDictionary(lang);
+  let settings: any = null;
+  try {
+    settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
+  } catch (e) {
+    console.error('Failed to fetch settings from database for About page:', e);
+  }
 
   return (
     <div className="py-20 px-4 sm:px-6 lg:px-8">
