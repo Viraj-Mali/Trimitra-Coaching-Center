@@ -303,7 +303,9 @@ export default async function HomePage({ params }: Props) {
               { id: 'f1', title: 'Foundation Program (6th–9th)', subtitle: 'Build Strong Basics', description: 'Perfect starting point for academic excellence and conceptual clarity.', subjects: 'Maths, Science, English', targetTrack: 'FOUNDATION_6_9' },
               { id: 'f2', title: '9th–10th Board Mastery', subtitle: 'Board-Focused Preparation', description: 'Comprehensive preparation for SSC & CBSE board exams.', subjects: 'Maths, Science, Social', targetTrack: 'BOARD_10' },
               { id: 'f3', title: '11th–12th Science', subtitle: 'HSC / CBSE', description: 'Expert coaching for Board exams with practical insights.', subjects: 'Physics, Chemistry, Maths, Biology if offered', targetTrack: 'SCIENCE_11_12' },
-              { id: 'f4', title: 'JEE / NEET / MHT-CET', subtitle: 'Competitive Focus', description: 'Structured preparation for engineering, medical and CET entrance exams.', subjects: 'Physics, Chemistry, Maths, Biology if offered', targetTrack: 'COMPETITIVE' },
+              { id: 'f4', title: 'JEE (Main & Adv)', subtitle: 'Engineering Entrance', description: 'Rigorous preparation for top-tier engineering colleges across India.', subjects: 'Physics, Chemistry, Maths', targetTrack: 'COMPETITIVE_JEE' },
+              { id: 'f5', title: 'NEET UG', subtitle: 'Medical Entrance', description: 'Focused preparation for national level medical entrance examinations.', subjects: 'Physics, Chemistry, Biology', targetTrack: 'COMPETITIVE_NEET' },
+              { id: 'f6', title: 'MHT-CET', subtitle: 'State Engineering & Pharmacy', description: 'Structured preparation for Maharashtra state level entrance exams.', subjects: 'Physics, Chemistry, Maths, Biology', targetTrack: 'COMPETITIVE_MHTCET' },
             ]).map((course: any, idx) => {
               const style = COURSE_STYLES[idx % COURSE_STYLES.length];
               const courseSlug = course.slug || course.targetTrack.toLowerCase();
