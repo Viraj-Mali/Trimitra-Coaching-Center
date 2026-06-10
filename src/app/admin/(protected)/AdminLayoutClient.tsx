@@ -113,7 +113,7 @@ export default function AdminLayoutClient({ children, adminName }: AdminLayoutCl
         </div>
       )}
 
-      <div className="flex-1 lg:ml-64 flex flex-col">
+      <div className="flex-1 lg:ml-64 flex flex-col min-w-0 w-full">
         <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-brand-blue/90 border-b border-white/10 sticky top-0 z-20">
           <button onClick={() => setSidebarOpen(true)} className="p-2 text-slate-300">
             <Menu size={20} />
@@ -121,7 +121,7 @@ export default function AdminLayoutClient({ children, adminName }: AdminLayoutCl
           <span className="text-brand-amber font-bold text-sm">Admin Panel</span>
           <div />
         </div>
-        <main className="flex-1 p-6 lg:p-8">{children}</main>
+        <main className="flex-1 p-4 lg:p-8 min-w-0 overflow-x-hidden">{children}</main>
       </div>
     </div>
   );

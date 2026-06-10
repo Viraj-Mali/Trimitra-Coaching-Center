@@ -30,7 +30,7 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((stat, i) => {
           const Icon = stat.icon;
           return (
@@ -46,12 +46,12 @@ export default async function AdminDashboardPage() {
       </div>
 
       {/* Recent Leads */}
-      <div className="glass-card p-6">
-        <div className="flex items-center justify-between mb-5">
+      <div className="glass-card overflow-hidden">
+        <div className="flex items-center justify-between p-4 sm:p-6 border-b border-white/5">
           <h2 className="text-white font-bold text-lg">Recent Leads</h2>
           <Link href="/admin/leads" className="text-brand-green text-sm hover:underline">View all →</Link>
         </div>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto p-0 sm:p-2">
           <table className="admin-table">
             <thead>
               <tr>
