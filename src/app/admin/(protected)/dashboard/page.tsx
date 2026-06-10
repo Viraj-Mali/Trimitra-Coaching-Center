@@ -7,13 +7,11 @@ export default async function AdminDashboardPage() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  const [totalLeads, enrolledStudents, activeToday, newLeads, recentLeads] = await Promise.all([
-    prisma.lead.count(),
-    prisma.student.count({ where: { role: 'ENROLLED' } }),
-    prisma.student.count({ where: { lastActiveAt: { gte: today } } }),
-    prisma.lead.count({ where: { status: 'PENDING', createdAt: { gte: today } } }),
-    prisma.lead.findMany({ orderBy: { createdAt: 'desc' }, take: 8 }),
-  ]);
+  const totalLeads = await prisma.lead.count();
+  const enrolledStudents = await prisma.student.count({ where: { role: 'ENROLLED' } });
+  const activeToday = await prisma.student.count({ where: { lastActiveAt: { gte: today } } });
+  const newLeads = await prisma.lead.count({ where: { status: 'PENDING', createdAt: { gte: today } } });
+  const recentLeads = await prisma.lead.findMany({ orderBy: { createdAt: 'desc' }, take: 8 });
 
   const stats = [
     { label: 'Total Leads', value: totalLeads, icon: Users, color: 'text-blue-400', bg: 'bg-blue-500/20 border-blue-500/30' },
