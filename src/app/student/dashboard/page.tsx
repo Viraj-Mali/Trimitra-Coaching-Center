@@ -11,24 +11,22 @@ export default async function DashboardPage() {
   const session = await getCurrentStudent();
   if (!session) redirect('/student/login');
 
-  const [student, notices, testMarks, recentQuiz, settings] = await Promise.all([
-    prisma.student.findUnique({ where: { id: session.id } }),
-    prisma.notice.findMany({
-      where: { OR: [{ targetTrack: session.track }, { targetTrack: null }] },
-      orderBy: { createdAt: 'desc' },
-      take: 3,
-    }),
-    prisma.testMark.findMany({
-      where: { studentId: session.id },
-      orderBy: { takenAt: 'desc' },
-      take: 5,
-    }),
-    prisma.quizAttempt.findFirst({
-      where: { studentId: session.id },
-      orderBy: { attemptedAt: 'desc' },
-    }),
-    prisma.siteSettings.findUnique({ where: { id: 'singleton' } }),
-  ]);
+  const student = await prisma.student.findUnique({ where: { id: session.id } });
+  const notices = await prisma.notice.findMany({
+    where: { OR: [{ targetTrack: session.track }, { targetTrack: null }] },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+  });
+  const testMarks = await prisma.testMark.findMany({
+    where: { studentId: session.id },
+    orderBy: { takenAt: 'desc' },
+    take: 5,
+  });
+  const recentQuiz = await prisma.quizAttempt.findFirst({
+    where: { studentId: session.id },
+    orderBy: { attemptedAt: 'desc' },
+  });
+  const settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
 
   if (!student) redirect('/student/login');
 
