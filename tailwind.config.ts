@@ -59,6 +59,10 @@ const config: Config = {
           "0%": { opacity: "0", transform: "translateY(20px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
+        slideInLeft: {
+          "0%": { opacity: "0", transform: "translateX(-100%)" },
+          "100%": { opacity: "1", transform: "translateX(0)" },
+        },
         slideInRight: {
           "0%": { opacity: "0", transform: "translateX(20px)" },
           "100%": { opacity: "1", transform: "translateX(0)" },
