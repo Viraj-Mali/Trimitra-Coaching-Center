@@ -1,4 +1,3 @@
-import { getCurrentStudent } from '@/lib/auth';
 import NavbarClient from './NavbarClient';
 import { prisma } from '@/lib/prisma';
 
@@ -7,16 +6,18 @@ interface NavbarProps {
 }
 
 export default async function Navbar({ lang }: NavbarProps) {
-  const [session, settings] = await Promise.all([
-    getCurrentStudent(),
-    prisma.siteSettings.findUnique({ where: { id: 'singleton' } }),
-  ]);
+  let settings = null;
+  try {
+    settings = await prisma.siteSettings.findUnique({ where: { id: 'singleton' } });
+  } catch (e) {
+    console.error(e);
+  }
 
   return (
     <NavbarClient
       lang={lang}
-      studentName={session?.name ?? null}
-      studentRole={session?.role ?? null}
+      studentName={null}
+      studentRole={null}
       logoUrl={settings?.logoUrl ?? '/logo.png'}
     />
   );

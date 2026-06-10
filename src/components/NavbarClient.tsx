@@ -24,6 +24,9 @@ const navLinks = [
 export default function NavbarClient({ lang, studentName, studentRole, logoUrl }: NavbarClientProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [sessionUser, setSessionUser] = useState<{name: string, role: string} | null>(
+    studentName && studentRole ? { name: studentName, role: studentRole } : null
+  );
   const router = useRouter();
   const pathname = usePathname();
 
@@ -32,6 +35,20 @@ export default function NavbarClient({ lang, studentName, studentRole, logoUrl }
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    // Only fetch if not already provided as props
+    if (!studentName) {
+      fetch('/api/auth/session')
+        .then(res => res.json())
+        .then(data => {
+          if (data?.user) {
+            setSessionUser(data.user);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [studentName]);
 
   const otherLang = lang === 'en' ? 'mr' : 'en';
   const otherLangLabel = lang === 'en' ? 'मराठी' : 'English';
@@ -92,13 +109,13 @@ export default function NavbarClient({ lang, studentName, studentRole, logoUrl }
               <Globe size={13} />
               {otherLangLabel}
             </Link>
-            {studentName ? (
+            {sessionUser ? (
               <>
                 <Link
-                  href={studentRole === 'ADMIN' ? '/admin/dashboard' : '/student/dashboard'}
+                  href={sessionUser.role === 'ADMIN' ? '/admin/dashboard' : '/student/dashboard'}
                   className="px-4 py-2 text-sm font-semibold text-white bg-brand-green/20 border border-brand-green/40 rounded-xl hover:bg-brand-green/30 transition-all"
                 >
-                  {studentName.split(' ')[0]} →
+                  {sessionUser.name.split(' ')[0]} →
                 </Link>
               </>
             ) : (
@@ -147,8 +164,8 @@ export default function NavbarClient({ lang, studentName, studentRole, logoUrl }
             <Link href={switchLangHref} className="flex items-center justify-center gap-2 w-full py-3 text-sm text-slate-300 border border-white/20 rounded-xl font-medium hover:bg-white/5">
               <Globe size={14} /> Switch to {otherLangLabel}
             </Link>
-            {studentName ? (
-              <Link href={studentRole === 'ADMIN' ? '/admin/dashboard' : '/student/dashboard'} className="block w-full py-3 text-center text-sm font-semibold text-white bg-brand-green/20 border border-brand-green/40 rounded-xl">
+            {sessionUser ? (
+              <Link href={sessionUser.role === 'ADMIN' ? '/admin/dashboard' : '/student/dashboard'} className="block w-full py-3 text-center text-sm font-semibold text-white bg-brand-green/20 border border-brand-green/40 rounded-xl">
                 Go to Dashboard →
               </Link>
             ) : (

@@ -1,4 +1,3 @@
-import { getCurrentStudent } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,6 +10,8 @@ import {
 import DemoFormClient from '@/components/DemoFormClient';
 
 interface Props { params: { lang: string } }
+
+export const revalidate = 60; // Enable ISR, revalidate every 60 seconds
 
 const COURSE_STYLES = [
   { icon: '📚', colorClass: 'border-purple-500/40 hover:border-purple-500/80', badgeClass: 'bg-purple-500/15 text-purple-300 border-purple-500/30', btnClass: 'bg-purple-500/20 border-purple-500/40 text-purple-300 hover:bg-purple-500/30' },
@@ -36,7 +37,6 @@ const WHY_FEATURES = [
 
 export default async function HomePage({ params }: Props) {
   const { lang } = params;
-  const student = await getCurrentStudent();
 
   // Load everything from database
   let dbCourses: any[] = [];
